@@ -1,23 +1,87 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+  // This is your Prisma schema file,
+  // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+  // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+  // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
-}
+  generator client {
+    provider = "prisma-client-js"
+    output   = "../lib/generated/prisma"
+  }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
+  datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+  }
 
-model User {
-  id            Int      @id @default(autoincrement()) 
-  display_name  String
-  avatar_url    String
-  created_at    DateTime @default(now())
-}
+  model User {
+    id           Int      @id @default(autoincrement()) 
+    displayName  String
+    avatarUrl    String 
+    createdAt    DateTime @default(now())
+
+    groupParticipants GroupParticipant[]
+    messages Message[]
+  }
+
+  model Group {
+    id               Int      @id @default(autoincrement()) 
+    name             String
+    description      String
+    deadlineProject  DateTime @db.Time()
+    createdAt        DateTime @default(now())
+
+    participants       GroupParticipant[]
+    messageRecipients  MessageRecipient[] 
+  }
+
+  model GroupParticipant {
+    id       Int      @id @default(autoincrement()) 
+    userId   Int
+    groupId  Int
+    role     Role @default(MEMBER)
+
+    user    User   @relation(fields: [userId], references: [id])
+    group   Group  @relation(fields: [groupId], references: [id])
+
+    @@unique([userId, groupId])
+  }
+
+  model Message {
+    id         Int      @id @default(autoincrement()) 
+    userId     Int
+    text       String?
+    type       Type @default(TEXT)
+    fileType   String?
+    fileSize   Int?
+    fileUrl    String?
+    createdAt  DateTime @default(now())
+
+    user    User   @relation(fields: [userId], references: [id])
+
+    recipients MessageRecipient?
+  }
+
+  model MessageRecipient {
+    id        Int       @id @default(autoincrement()) 
+    groupId   Int   
+    messageId Int       @unique
+    isEdit    Boolean 
+    isPin     Boolean
+
+    group Group @relation(fields: [groupId], references: [id])    
+    message Message @relation(fields: [messageId], references: [id])
+  }
+
+  enum Role {
+    MEMBER 
+    ADMIN
+  }
+
+  enum Type { 
+    TEXT
+    IMAGE
+    FILE 
+    LINK
+  }
