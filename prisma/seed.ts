@@ -10,3 +10,14 @@ async function main() {
     await prisma.user.create({ data: createGroupData() });
   }
 }
+
+main()
+  .then(() => {
+    console.log("🌱 Seeder selesai.");
+    return prisma.$disconnect();
+  })
+  .catch((e) => {
+    console.error(e);
+    prisma.$disconnect();
+    process.exit(1);
+  });
