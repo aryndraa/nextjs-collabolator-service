@@ -28,8 +28,8 @@
   model Group {
     id               Int      @id @default(autoincrement()) 
     name             String
-    description      String
-    deadlineProject  DateTime @db.Time()
+    description      String?
+    deadlineProject  DateTime @db.Date()
     createdAt        DateTime @default(now())
 
     participants       GroupParticipant[]
@@ -51,7 +51,7 @@
   model Message {
     id         Int      @id @default(autoincrement()) 
     userId     Int
-    text       String?
+    text       String? 
     type       Type @default(TEXT)
     fileType   String?
     fileSize   Int?
