@@ -32,7 +32,7 @@
     deadlineProject  DateTime @db.Date()
     createdAt        DateTime @default(now())
 
-    participants       GroupParticipant[]
+    participants       GroupParticipant[] 
     messageRecipients  MessageRecipient[] 
   }
 
@@ -42,8 +42,8 @@
     groupId  Int
     role     Role @default(MEMBER)
 
-    user    User   @relation(fields: [userId], references: [id])
-    group   Group  @relation(fields: [groupId], references: [id])
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
     @@unique([userId, groupId])
   }
@@ -58,9 +58,9 @@
     fileUrl    String?
     createdAt  DateTime @default(now())
 
-    user    User   @relation(fields: [userId], references: [id])
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    recipients MessageRecipient?
+    recipients MessageRecipient? 
   }
 
   model MessageRecipient {
@@ -70,8 +70,8 @@
     isEdit    Boolean 
     isPin     Boolean
 
-    group Group @relation(fields: [groupId], references: [id])    
-    message Message @relation(fields: [messageId], references: [id])
+    group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)    
+    message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
   }
 
   enum Role {

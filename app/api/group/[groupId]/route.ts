@@ -72,3 +72,32 @@ export async function PUT(
     { status: 403 }
   );
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { groupId: string } }
+) {
+  const body = await req.json();
+  const { userId } = body;
+
+  const isAdmin = await prisma.groupParticipant.findFirst({
+    where: {
+      groupId: Number(params.groupId),
+      userId: Number(userId),
+      role: "ADMIN",
+    },
+  });
+
+  if (isAdmin) {
+    await prisma.group.delete({
+      where: { id: Number(params.groupId) },
+    });
+
+    return NextResponse.json({ success: true });
+  }
+
+  return NextResponse.json(
+    { message: "Unauthorized: Only admin can update this group" },
+    { status: 403 }
+  );
+}
