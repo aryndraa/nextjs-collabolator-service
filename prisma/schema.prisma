@@ -18,7 +18,7 @@
   model User {
     id           Int      @id @default(autoincrement()) 
     displayName  String
-    avatarUrl    String 
+    avatarUrl    String? 
     createdAt    DateTime @default(now())
 
     groupParticipants GroupParticipant[]

@@ -13,6 +13,7 @@ const groupSchema = z.object({
   deadlineProject: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
+  userId: z.number(),
 });
 
 export async function POST(req: Request) {
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { name, description, deadlineProject } = result.data;
+  const { name, description, deadlineProject, userId } = result.data;
 
   const group = await prisma.group.create({
     data: {
@@ -39,5 +40,13 @@ export async function POST(req: Request) {
     },
   });
 
-  return NextResponse.json(group, { status: 201 });
+  const admin = await prisma.groupParticipant.create({
+    data: {
+      userId,
+      groupId: group.id,
+      role: "ADMIN",
+    },
+  });
+
+  return NextResponse.json({ group, admin }, { status: 201 });
 }
