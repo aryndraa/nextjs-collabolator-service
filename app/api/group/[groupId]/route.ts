@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { ShowGroupResource } from "../../_resources/group/ShowGroupResource";
 
 export async function GET(
   _: Request,
@@ -8,14 +9,11 @@ export async function GET(
 ) {
   const group = await prisma.group.findUnique({
     where: { id: Number(params.groupId) },
-    include: {
-      participants: true,
-    },
   });
 
   if (!group) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  return NextResponse.json(group);
+  return NextResponse.json(ShowGroupResource.toJson(group));
 }
 
 const groupSchema = z.object({

@@ -1,12 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { GetGroupResource } from "../_resources/group/GetGroupResource";
+import { GetGroupsResource } from "../_resources/group/GetGroupsResource";
 
 export async function GET() {
   const groups = await prisma.group.findMany();
 
-  return NextResponse.json(GetGroupResource.collection(groups), {
+  return NextResponse.json(GetGroupsResource.collection(groups), {
     status: 201,
   });
 }
