@@ -1,10 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { GetGroupResource } from "../_resources/group/GetGroupResource";
 
 export async function GET() {
   const groups = await prisma.group.findMany();
-  return NextResponse.json(groups, { status: 201 });
+
+  return NextResponse.json(GetGroupResource.collection(groups), {
+    status: 201,
+  });
 }
 
 const groupSchema = z.object({
