@@ -1,3 +1,4 @@
+import { GetParticipantResource } from "@/app/api/_resources/participant/GetParticipantResource";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -15,7 +16,7 @@ export async function GET(
     },
   });
 
-  return NextResponse.json(participants);
+  return NextResponse.json(GetParticipantResource.collection(participants));
 }
 
 const addParticipant = z.object({
