@@ -66,17 +66,20 @@
     user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     recipients MessageRecipient? 
+    repliedBy  MessageRecipient[] @relation("ReplyTo")
   }
 
   model MessageRecipient {
-    id        Int       @id @default(autoincrement()) 
-    groupId   Int   
-    messageId Int       @unique
-    isEdit    Boolean 
-    isPin     Boolean
+    id             Int       @id @default(autoincrement()) 
+    groupId        Int   
+    messageId      Int       @unique
+    replyToId      Int? 
+    isEdit         Boolean 
+    isPin          Boolean
 
     group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)    
     message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+    replyTo Message? @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: SetNull)
   }
 
   model Friend {
