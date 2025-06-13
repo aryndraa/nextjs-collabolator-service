@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { GetFriendResource } from "../../_resources/friend/GetFriendResource";
 
 export async function GET(
   req: Request,
@@ -9,6 +10,7 @@ export async function GET(
 
   const friends = await prisma.friend.findMany({
     where: {
+      status: "PENDING",
       OR: [{ senderId: userId }, { receiverId: userId }],
     },
     include: {
@@ -21,7 +23,7 @@ export async function GET(
     return NextResponse.json({ message: "No friends found." }, { status: 200 });
   }
 
-  return NextResponse.json(friends);
+  return NextResponse.json(GetFriendResource.collection(friends, userId));
 }
 
 export async function POST(

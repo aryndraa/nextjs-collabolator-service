@@ -1,3 +1,4 @@
+import { GetFriendResource } from "@/app/api/_resources/friend/GetFriendResource";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -24,20 +25,5 @@ export async function GET(
     return NextResponse.json({ message: "No friends found." }, { status: 200 });
   }
 
-  const result = friends.map((friend) => {
-    const isSender = friend.senderId === userId;
-    const otherUser = isSender ? friend.receiver : friend.sender;
-
-    return {
-      id: friend.id,
-      status: friend.status,
-      user: {
-        id: otherUser.id,
-        displayName: otherUser.displayName,
-        avatarUrl: otherUser.avatarUrl,
-      },
-    };
-  });
-
-  return NextResponse.json(result);
+  return NextResponse.json(GetFriendResource.collection(friends, userId));
 }
