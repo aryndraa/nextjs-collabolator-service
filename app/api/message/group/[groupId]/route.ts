@@ -1,6 +1,6 @@
+import { GetMessageResource } from "@/app/api/_resources/message/GetMessageResource";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { GetMessageResource } from "../../_resources/message/GetMessageResource";
 
 export async function GET(
   req: Request,
