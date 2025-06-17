@@ -14,7 +14,7 @@ const navigationItems = [
   },
   {
     name: "Workspace",
-    link: "/project-room",
+    link: "/workspace",
     icon: <FaToolbox />,
   },
   {
@@ -42,7 +42,7 @@ export default function MenuBar() {
       <div>
         <div className="hidden lg:flex  border-b px-5 py-4">
           <button
-            className="text-2xl p-2 hover:bg-zinc-950 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer"
+            className="text-2xl p-2 hover:bg-zinc-800 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           >
             <IoMenu />
@@ -57,7 +57,7 @@ export default function MenuBar() {
                 key={index}
                 className={`flex flex-col lg:flex-row   gap-1 lg:gap-4 items-center lg:py-5 lg:px-7 lg:border-r-2  lg:border-r-transparent hover:bg-zinc-100 transition ${
                   isActive
-                    ? "text-zinc-950 lg:border-r-zinc-950"
+                    ? "text-zinc-800 lg:border-r-zinc-800"
                     : "text-zinc-300"
                 } `}
               >
