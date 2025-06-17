@@ -1,3 +1,9 @@
+import GroupLinks from "./_components/group-links";
+
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <GroupLinks />
+    </div>
+  );
 }
