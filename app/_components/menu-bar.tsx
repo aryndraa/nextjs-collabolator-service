@@ -42,10 +42,17 @@ export default function MenuBar() {
       <div>
         <div className="hidden lg:flex  border-b px-5 py-4">
           <button
-            className="text-2xl p-2 hover:bg-zinc-800 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer"
+            className="text-2xl p-2 hover:bg-primary-100 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer flex items-center gap-4"
             onClick={() => setIsOpen(!isOpen)}
           >
             <IoMenu />
+            <span
+              className={`text-xs lg:text-sm  font-semibold pr-2 ${
+                isOpen ? "" : "lg:hidden"
+              }`}
+            >
+              Menu
+            </span>
           </button>
         </div>
         <div className="flex lg:flex-col  justify-between px-6 lg:px-0  pt-3 lg:pt-4 pb-3 ">
@@ -55,10 +62,10 @@ export default function MenuBar() {
               <Link
                 href={item.link}
                 key={index}
-                className={`flex flex-col lg:flex-row   gap-1 lg:gap-4 items-center lg:py-5 lg:px-7 lg:border-r-2  lg:border-r-transparent hover:bg-zinc-100 transition ${
+                className={`flex flex-col lg:flex-row   gap-1 lg:gap-4 items-center lg:py-5 lg:px-7 lg:border-r-2  lg:border-r-transparent transition ${
                   isActive
-                    ? "text-zinc-800 lg:border-r-zinc-800"
-                    : "text-zinc-300"
+                    ? "text-primary-100 lg:bg-primary-100/10 lg:border-r-violet-800"
+                    : "text-zinc-300 hover:bg-zinc-50 "
                 } `}
               >
                 <span className="text-[22px] lg:text-xl">{item.icon}</span>

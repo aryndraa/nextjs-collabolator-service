@@ -8,9 +8,12 @@ export default function GroupItem() {
       href="#"
       className="px-6 py-4 hover:bg-zinc-50 flex items-center justify-between transition ease-in-out "
     >
-      <div className="flex items-center gap-4  text-zinc-400">
-        <FaUsers className="text-2xl" />
-        <span className="font-">Group Name</span>
+      <div className="flex items-center gap-4  text-zinc-600">
+        <FaUsers className="text-3xl text-primary-200" />
+        <div>
+          <h3 className="font-medium">Group Name</h3>
+          <p className="text-sm text-zinc-400">last message...</p>
+        </div>
       </div>
       <div className="size-6  text-xs bg-primary-100 font-medium text-white flex items-center justify-center rounded-full ">
         12
