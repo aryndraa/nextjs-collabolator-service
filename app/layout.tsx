@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
-      <body className={`${outfit.variable}  antialiased`}>
+      <body className={`${outfit.variable}  antialiased `}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
