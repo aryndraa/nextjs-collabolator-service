@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./_components/theme-provider";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "./_components/app-sidebar";
+import MenuBar from "./_components/menu-bar";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -29,13 +28,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
-            <main>
-              <SidebarTrigger />
-              {children}
-            </main>
-          </SidebarProvider>
+          <MenuBar />
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>
