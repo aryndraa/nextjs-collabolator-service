@@ -29,7 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <MenuBar />
-          <main className="ml-20">{children}</main>
+          <main className="lg:ml-20 bg-[#F3F3F3]">{children}</main>
         </ThemeProvider>
       </body>
     </html>
