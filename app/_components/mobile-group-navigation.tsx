@@ -5,7 +5,7 @@ import Logo from "./logo";
 
 export default function MobileGroupNavigation() {
   return (
-    <div className="w-full border-r h-screen lg:hidden ">
+    <div className="hidden w-full border-r h-screen lg:hidden ">
       <div className="w-full flex justify-start p-5 py-6 bg-white mb-4 ">
         <Logo />
       </div>
