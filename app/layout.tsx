@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { MenuBarProvider } from "@/contexts/MenuBarContext";
-import {ThemeProvider} from "next-themes";
+import { ThemeProvider } from "next-themes";
 import MenuBarWrapper from "@/components/MenuBarWrapper";
 
 const outfit = Outfit({
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
-      <body className={`${outfit.variable}  antialiased `}>
+      <body className={`${outfit.variable}  antialiased overflow-y-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -31,7 +31,7 @@ export default function RootLayout({
         >
           <MenuBarProvider>
             <MenuBarWrapper />
-            <main className="lg:ml-20 bg-[#F3F3F3]">{children}</main>
+            <main className="lg:ml-20 bg-[#F3F3F3] ">{children}</main>
           </MenuBarProvider>
         </ThemeProvider>
       </body>

@@ -1,0 +1,35 @@
+import React from "react";
+import { MdArrowBackIos } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
+import { FaRegUserCircle, FaInfoCircle } from "react-icons/fa";
+
+export default function GroupMessageHeader() {
+  return (
+    <div className="flex items-center justify-between px-6 py-4 border-b">
+      <div className="flex items-center gap-2">
+        <button className="text-xl text-zinc-400">
+          <MdArrowBackIos />
+        </button>
+        <div className="flex items-center gap-4 text-zinc-600 bg-white">
+          <span className="p-2 bg-primary-100/10 rounded-full">
+            <FaUsers className="text-xl text-primary-200" />
+          </span>
+          <div>
+            <h3 className="font-medium text-base">Group Name</h3>
+            <p className="text-sm text-zinc-400">2 online</p>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-6 ">
+        <button className="text-xl flex items-center gap-2 text-zinc-500">
+          <FaRegUserCircle />
+          <span className="text-sm font-medium">Member</span>
+        </button>
+        <button className="text-xl  flex items-center gap-2 text-zinc-500">
+          <FaInfoCircle />
+          <span className="text-sm font-medium">Info</span>
+        </button>
+      </div>
+    </div>
+  );
+}

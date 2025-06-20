@@ -5,7 +5,7 @@ import GroupMessage from "@/components/GroupMessage";
 
 export default function Home() {
   return (
-    <div className="bg-[#F3F3F3] overflow-hidden">
+    <div className="bg-[#F3F3F3] ">
       <GroupProvider>
         <div className="flex">
           <div>
@@ -15,7 +15,7 @@ export default function Home() {
             <MobileGroupNavigation />
           </div>
 
-          <div className="bg-[#F3F3F3] w-full m-6 ">
+          <div className="bg-[#F3F3F3] w-full m-4 ">
             <GroupMessage />
           </div>
         </div>
