@@ -2,7 +2,6 @@ import { GroupProvider } from "@/contexts/GroupContext";
 import GroupNavigation from "@/components/GroupNavigation";
 import MobileGroupNavigation from "@/components/MobileGroupNavigation";
 import GroupMessage from "@/components/GroupMessage";
-import Header from "@/components/Header";
 
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
           </div>
 
           <div className="bg-[#F3F3F3] w-full m-6 ">
-            <Header />
             <GroupMessage />
           </div>
         </div>
