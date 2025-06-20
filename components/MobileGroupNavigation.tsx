@@ -1,5 +1,5 @@
 import React from "react";
-import GroupItem from "./group-item";
+import GroupItem from "./GroupItem";
 import { GoPlus } from "react-icons/go";
 import Logo from "./logo";
 

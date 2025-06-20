@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./_components/theme-provider";
-import MenuBar from "./_components/menu-bar";
+import { MenuBarProvider } from "@/contexts/MenuBarContext";
+import {ThemeProvider} from "next-themes";
+import MenuBarWrapper from "@/components/MenuBarWrapper";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -28,8 +29,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <MenuBar />
-          <main className="lg:ml-20 bg-[#F3F3F3]">{children}</main>
+          <MenuBarProvider>
+            <MenuBarWrapper />
+            <main className="lg:ml-20 bg-[#F3F3F3]">{children}</main>
+          </MenuBarProvider>
         </ThemeProvider>
       </body>
     </html>

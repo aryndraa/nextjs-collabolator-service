@@ -1,21 +1,25 @@
-import GroupNavigation from "./_components/group-navigation";
-import MobileGroupNavigation from "./_components/mobile-group-navigation";
-import GroupMessage from "./_components/group-message";
+
 import { GroupProvider } from "@/contexts/GroupContext";
+import GroupNavigation from "@/components/GroupNavigation";
+import MobileGroupNavigation from "@/components/MobileGroupNavigation";
+import GroupMessage from "@/components/GroupMessage";
 
 export default function Home() {
   return (
-    <div className="bg-[#F3F3F3]">
+    <div className="bg-[#F3F3F3] overflow-hidden">
       <GroupProvider>
-        <div>
-          <div className="hidden lg:block">
-            <GroupNavigation />
+        <div className="flex">
+          <div>
+            <div className="hidden lg:block">
+              <GroupNavigation />
+            </div>
+            <MobileGroupNavigation />
           </div>
-          <MobileGroupNavigation />
-        </div>
 
-        <div>
-          <GroupMessage />
+          <div className="bg-[#F3F3F3] ">
+            <GroupMessage
+            />
+          </div>
         </div>
       </GroupProvider>
     </div>

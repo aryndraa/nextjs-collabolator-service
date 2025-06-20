@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "./logo";
 import { GoPlus } from "react-icons/go";
-import GroupItem from "./group-item";
+import GroupItem from "./GroupItem";
 
 export default function GroupNavigation() {
   return (
