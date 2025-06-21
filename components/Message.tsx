@@ -21,7 +21,7 @@ export default function Message({ user, content, sender }: MessageProps) {
   }
 
   return (
-    <div className="flex flex-col items-start lg:gap-2 w-fit">
+    <div className="flex flex-col items-start gap-2 w-fit">
       <div className="bg-white p-3 px-4 rounded-xl rounded-bl-none border-zinc-400 text-sm md:text-base mb-2 min-w-[20%] border">
         {content}
       </div>

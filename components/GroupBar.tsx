@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import GroupMeetingCard from "./GroupMeetingCard";
 
 export default function GroupBar() {
   const [tabCon, setTabCon] = useState<boolean>(false);
 
   return (
     <div className="lg:h-[95dvh] bg-white w-[35%] rounded-lg p-6">
-      <div className="flex gap-4">
+      <div className="flex gap-4 mb-6">
         <button
           className={`px-6 py-2 rounded-full transition cursor-pointer ${
             !tabCon ? "bg-primary-100 text-white" : "bg-white text-zinc-500"
@@ -23,6 +24,14 @@ export default function GroupBar() {
         >
           Assigments
         </button>
+      </div>
+
+      <div>
+        <div className="flex flex-col gap-6">
+          <GroupMeetingCard />
+          <GroupMeetingCard />
+          <GroupMeetingCard />
+        </div>
       </div>
     </div>
   );
