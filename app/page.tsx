@@ -15,7 +15,7 @@ export default function Home() {
             <MobileGroupNavigation />
           </div>
 
-          <div className="bg-[#F3F3F3] w-full m-4 ">
+          <div className="bg-[#F3F3F3] w-full lg:m-4 ">
             <GroupMessage />
           </div>
         </div>
