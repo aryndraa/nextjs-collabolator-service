@@ -2,6 +2,7 @@ import { GroupProvider } from "@/contexts/GroupContext";
 import GroupNavigation from "@/components/GroupNavigation";
 import MobileGroupNavigation from "@/components/MobileGroupNavigation";
 import GroupMessage from "@/components/GroupMessage";
+import GroupBar from "@/components/GroupBar";
 
 export default function Home() {
   return (
@@ -15,8 +16,9 @@ export default function Home() {
             <MobileGroupNavigation />
           </div>
 
-          <div className="bg-[#F3F3F3] w-full lg:m-4 ">
+          <div className="bg-[#F3F3F3] w-full lg:m-4 flex gap-4 ">
             <GroupMessage />
+            <GroupBar />
           </div>
         </div>
       </GroupProvider>
