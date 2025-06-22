@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import GroupListMeetings from "./GroupListMeetings";
-import GroupAssignmetCard from "./GroupAssignmentCard";
+import GroupListAssignment from "./GroupListAssignment";
 
 export default function GroupBar() {
   const [tabCon, setTabCon] = useState<boolean>(false);
@@ -27,16 +27,7 @@ export default function GroupBar() {
         </button>
       </div>
 
-      {!tabCon ? (
-        <GroupListMeetings />
-      ) : (
-        <div className="flex flex-col gap-4 overflow-y-scroll max-h-[80dvh] scroll-y">
-          <GroupAssignmetCard />
-          <GroupAssignmetCard />
-          <GroupAssignmetCard />
-          <GroupAssignmetCard />
-        </div>
-      )}
+      {!tabCon ? <GroupListMeetings /> : <GroupListAssignment />}
     </div>
   );
 }
