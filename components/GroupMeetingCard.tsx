@@ -8,7 +8,7 @@ export default function GroupMeetingCard() {
     <div className="p-4 border rounded-lg">
       <div className="flex justify-between mb-4">
         <div>
-          <h3 className="font-medium">Meeting Title</h3>
+          <h3 className="font-semibold">Meeting Title</h3>
           <p className="text-sm text-zinc-500">December 12, 12:40 PM</p>
         </div>
         <div className="flex flex-col items-end justify-between">

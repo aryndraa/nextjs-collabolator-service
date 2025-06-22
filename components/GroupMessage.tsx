@@ -5,7 +5,7 @@ import GroupMessageHeader from "./GroupMessageHeader";
 
 export default function GroupMessage() {
   return (
-    <div className="  lg:bg-white rounded-lg w-full lg:w-[65%] h-[100vdh] lg:h-[95dvh] flex flex-col relative z-[9999]">
+    <div className="  lg:bg-white rounded-lg w-full lg:w-[65%] h-[100vdh] lg:h-[95dvh] flex flex-col relative lg:z-0 z-[9999]">
       <GroupMessageHeader />
 
       <div className="flex-1 px-5 lg:px-12 py-4 overflow-y-scroll max-h-[73vh] lg:max-h-full flex flex-col gap-8 scroll-y ">
