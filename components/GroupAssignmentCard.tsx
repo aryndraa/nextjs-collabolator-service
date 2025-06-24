@@ -3,7 +3,7 @@ import { IoSettings } from "react-icons/io5";
 
 export default function GroupAssignmetCard() {
   return (
-    <div className="p-4 border rounded-lg">
+    <div className="p-4 border rounded-lg bg-zinc-100">
       <div className="flex justify-between mb-3 ">
         <div>
           <h3 className=" font-semibold mb-0.5">Task Title</h3>

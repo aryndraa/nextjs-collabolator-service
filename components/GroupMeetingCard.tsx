@@ -5,7 +5,7 @@ import { IoSettings } from "react-icons/io5";
 
 export default function GroupMeetingCard() {
   return (
-    <div className="p-4 border rounded-lg">
+    <div className="p-4 border rounded-lg bg-zinc-100">
       <div className="flex justify-between mb-4">
         <div>
           <h3 className="font-semibold">Meeting Title</h3>
