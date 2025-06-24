@@ -1,4 +1,5 @@
 import { FaUserCircle } from "react-icons/fa";
+import { IoSettings } from "react-icons/io5";
 
 export default function GroupAssignmetCard() {
   return (
@@ -22,13 +23,18 @@ export default function GroupAssignmetCard() {
           Initiate project scope and objectives while coordinating with
           stakeholders to ensure alignment on deliverables and timelines...
         </p>
-        <div className="flex items-center gap-2">
-          <div className="text-zinc-400">
-            <FaUserCircle />
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="text-zinc-400">
+              <FaUserCircle />
+            </div>
+            <span className="text-sm font-medium text-zinc-600">
+              Petel Arrauw
+            </span>
           </div>
-          <span className="text-sm font-medium text-zinc-600">
-            Petel Arrauw
-          </span>
+          <button className="flex cursor-pointer justify-center p-2 text-primary-100 rounded-lg text-lg font-medium border border-primary-100">
+            <IoSettings />
+          </button>
         </div>
       </div>
     </div>
