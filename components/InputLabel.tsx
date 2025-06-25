@@ -10,7 +10,7 @@ type InputLabelProps = {
 export function InputLabel({ name, type, placeholder }: InputLabelProps) {
   return (
     <div className="grid w-full  items-center gap-3">
-      <Label htmlFor={type} className="capitalize">
+      <Label htmlFor={type} className="capitalize text-zinc-400 ">
         {name}
       </Label>
       <Input

@@ -1,6 +1,7 @@
 import React from "react";
 import Overlay from "./Overlay";
 import { InputLabel } from "./InputLabel";
+import { TextInputLabel } from "./TextInputLabel";
 
 export default function GroupInfoModal() {
   return (
@@ -18,11 +19,16 @@ export default function GroupInfoModal() {
             </button>
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-6">
           <InputLabel
             name="name"
             type="text"
             placeholder="Emter your group name"
+          />
+          <TextInputLabel
+            name="description"
+            placeholder="Emter your group description"
+            height={8}
           />
         </div>
       </div>
