@@ -2,6 +2,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { AiOutlineLink } from "react-icons/ai";
 import Link from "next/link";
 import { IoSettings } from "react-icons/io5";
+import Button from "./Button";
 
 export default function GroupMeetingCard() {
   return (
@@ -31,9 +32,7 @@ export default function GroupMeetingCard() {
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          <button className="w-full flex-1 flex justify-center py-2 text-white rounded-lg text-sm font-medium bg-primary-100">
-            Join Meeting
-          </button>
+          <Button>Join Meeting</Button>
           <button className="flex justify-center p-2 text-primary-100 rounded-lg text-lg font-medium border border-primary-100">
             <IoSettings />
           </button>

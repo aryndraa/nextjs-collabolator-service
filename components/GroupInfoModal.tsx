@@ -2,6 +2,7 @@ import React from "react";
 import Overlay from "./Overlay";
 import { InputLabel } from "./InputLabel";
 import { TextInputLabel } from "./TextInputLabel";
+import { DatePicker } from "./DatePicker";
 
 export default function GroupInfoModal() {
   return (
@@ -30,6 +31,7 @@ export default function GroupInfoModal() {
             placeholder="Emter your group description"
             height={8}
           />
+          <DatePicker />
         </div>
       </div>
     </Overlay>

@@ -1,6 +1,7 @@
 import React from "react";
 import GroupMeetingCard from "./GroupMeetingCard";
 import { GoPlus } from "react-icons/go";
+import Button from "./Button";
 
 export default function GroupListMeetings() {
   return (
@@ -23,12 +24,12 @@ export default function GroupListMeetings() {
         </div>
       </div>
       <div className="py-3 w-full border-t ">
-        <button className="flex items-center gap-2 cursor-pointer justify-center p-3 font-medium text-white w-full text-sm bg-primary-100 rounded-lg">
+        <Button>
           <span className="text-xl">
             <GoPlus />
           </span>
           New Meeting
-        </button>
+        </Button>
       </div>
     </div>
   );
