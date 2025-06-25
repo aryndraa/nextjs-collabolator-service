@@ -12,14 +12,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePicker() {
+type DatePickerProps = {
+  name: string;
+};
+
+export function DatePicker({ name }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState<Date | undefined>(undefined);
 
   return (
     <div className="flex flex-col gap-3">
       <Label htmlFor="date" className="px-1 capitalize text-zinc-400">
-        Date of birth
+        {name}
       </Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>

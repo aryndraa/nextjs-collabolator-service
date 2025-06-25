@@ -33,7 +33,7 @@ export default function GroupMeetingCard() {
         </div>
         <div className="flex items-center gap-2">
           <Button>Join Meeting</Button>
-          <button className="flex justify-center p-2 text-primary-100 rounded-lg text-lg font-medium border border-primary-100">
+          <button className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100">
             <IoSettings />
           </button>
         </div>
