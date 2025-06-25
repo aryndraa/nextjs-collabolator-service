@@ -2,6 +2,7 @@ import React from "react";
 import { MdArrowBackIos } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { FaRegUserCircle, FaInfoCircle } from "react-icons/fa";
+import GroupInfoModal from "./GroupInfoModal";
 
 export default function GroupMessageHeader() {
   return (
@@ -30,6 +31,8 @@ export default function GroupMessageHeader() {
           <span className="text-sm font-medium hidden lg:block">Info</span>
         </button>
       </div>
+
+      <GroupInfoModal />
     </div>
   );
 }

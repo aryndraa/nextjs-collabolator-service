@@ -42,7 +42,7 @@ export default function MenuBar() {
       <div>
         <div className="hidden lg:flex  border-b px-5 py-4">
           <button
-            className="text-2xl p-2 hover:bg-primary-100 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer flex items-center gap-4"
+            className="text-2xl bg-zinc-100 p-2 hover:bg-primary-100 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer flex items-center gap-4"
             onClick={() => setIsOpen(!isOpen)}
           >
             <IoMenu />
