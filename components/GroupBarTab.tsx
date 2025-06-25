@@ -15,7 +15,7 @@ export default function GroupBarTab({
         className={`size-6 rounded-full  flex items-center justify-center ${
           active
             ? "bg-white text-primary-100 font-semibold"
-            : "bg-transparent text-zinc-500"
+            : "bg-zinc-100 text-zinc-500"
         }`}
       >
         {count}

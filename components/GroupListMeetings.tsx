@@ -5,7 +5,7 @@ import { GoPlus } from "react-icons/go";
 export default function GroupListMeetings() {
   return (
     <div>
-      <div className="flex flex-col gap-4 overflow-y-scroll max-h-[73dvh] scroll-y">
+      <div className="flex flex-col gap-4 overflow-y-scroll max-h-[73dvh] scroll-y pb-24">
         <div>
           <h2 className="mb-3 text-sm font-medium text-zinc-400">On Going</h2>
           <div className="flex flex-col gap-4 ">

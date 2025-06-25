@@ -1,9 +1,16 @@
 "use client";
 
-import { useMenuBar } from "@/contexts/MenuBarContext";
+import { usePathname } from "next/navigation";
 import MenuBar from "./MenuBar";
 
 export default function MenuBarWrapper() {
-  const { showMenuBar } = useMenuBar();
+  const pathname = usePathname();
+
+  // Daftar path yang ingin disembunyikan
+  const hiddenPaths = ["/"];
+
+  // Jika pathname cocok, jangan tampilkan MenuBar
+  const showMenuBar = !hiddenPaths.includes(pathname);
+
   return showMenuBar ? <MenuBar /> : null;
 }

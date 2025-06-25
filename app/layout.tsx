@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { MenuBarProvider } from "@/contexts/MenuBarContext";
 import { ThemeProvider } from "next-themes";
+import MenuBar from "@/components/MenuBar";
 import MenuBarWrapper from "@/components/MenuBarWrapper";
 
 const outfit = Outfit({
@@ -29,10 +29,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <MenuBarProvider>
-            <MenuBarWrapper />
-            <main className="lg:ml-20 bg-[#F3F3F3] ">{children}</main>
-          </MenuBarProvider>
+          <div>
+            <div className="lg:hidden">
+              <MenuBarWrapper />
+            </div>
+            <div className="hidden lg:block">
+              <MenuBar />
+            </div>
+          </div>
+
+          <main className="lg:ml-20 bg-[#F3F3F3] ">{children}</main>
         </ThemeProvider>
       </body>
     </html>
