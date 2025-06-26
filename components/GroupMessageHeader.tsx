@@ -1,10 +1,14 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { MdArrowBackIos } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { FaRegUserCircle, FaInfoCircle } from "react-icons/fa";
 import GroupInfoModal from "./GroupInfoModal";
 
 export default function GroupMessageHeader() {
+  const [openInfo, setOpenInfo] = useState<boolean>(false);
+
   return (
     <div className="flex items-center justify-between px-6 py-4 border-b bg-white lg:bg-transparent">
       <div className="flex items-center gap-2">
@@ -26,13 +30,16 @@ export default function GroupMessageHeader() {
           <FaRegUserCircle />
           <span className="text-sm font-medium hidden lg:block">Member</span>
         </button>
-        <button className="text-xl  flex items-center gap-2 text-zinc-500">
+        <button
+          onClick={() => setOpenInfo(true)}
+          className="text-xl  flex items-center gap-2 text-zinc-500 cursor-pointer"
+        >
           <FaInfoCircle />
           <span className="text-sm font-medium hidden lg:block">Info</span>
         </button>
       </div>
 
-      <GroupInfoModal />
+      {openInfo && <GroupInfoModal setOpenInfo={() => setOpenInfo(false)} />}
     </div>
   );
 }

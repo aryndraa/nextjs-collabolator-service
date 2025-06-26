@@ -4,11 +4,24 @@ import { InputLabel } from "./InputLabel";
 import { TextInputLabel } from "./TextInputLabel";
 import { DatePicker } from "./DatePicker";
 import Button from "./Button";
+import { IoIosClose } from "react-icons/io";
 
-export default function GroupInfoModal() {
+type groupInfoModal = {
+  setOpenInfo: () => void;
+};
+
+export default function GroupInfoModal({ setOpenInfo }: groupInfoModal) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6">
+        <div className="flex justify-end -mb-4">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setOpenInfo}
+          >
+            <IoIosClose />
+          </button>
+        </div>
         <div className="flex flex-col items-center mb-6">
           <h1 className="text-xl font-semibold mb-1">Change Group Info</h1>
           <p>Change the group description, deadlines and title</p>
