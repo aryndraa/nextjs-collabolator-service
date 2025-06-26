@@ -9,6 +9,7 @@ import GroupJoinMeetingModal from "./GroupJoinMeetingModal";
 
 export default function GroupMeetingCard() {
   const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [openJoin, setOpenJoin] = useState<boolean>(false);
 
   return (
     <div className="p-4 border rounded-lg bg-zinc-100">
@@ -37,7 +38,7 @@ export default function GroupMeetingCard() {
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          <Button>Join Meeting</Button>
+          <Button onClick={() => setOpenJoin(true)}>Join Meeting</Button>
           <button
             onClick={() => setOpenEdit(true)}
             className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100"
@@ -51,7 +52,9 @@ export default function GroupMeetingCard() {
         <GroupMeetingModal setIsOpen={() => setOpenEdit(false)} type="update" />
       )}
 
-      <GroupJoinMeetingModal />
+      {openJoin && (
+        <GroupJoinMeetingModal setIsOpen={() => setOpenJoin(false)} />
+      )}
     </div>
   );
 }

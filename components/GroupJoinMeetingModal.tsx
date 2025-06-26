@@ -7,12 +7,21 @@ import { Label } from "./ui/label";
 import { IoIosClose } from "react-icons/io";
 import Button from "./Button";
 
-export default function GroupJoinMeetingModal() {
+type GroupJoinMeetingModalProps = {
+  setIsOpen: () => void;
+};
+
+export default function GroupJoinMeetingModal({
+  setIsOpen,
+}: GroupJoinMeetingModalProps) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6 ">
         <div className="flex justify-end -mb-4">
-          <button className="text-3xl cursor-pointer text-zinc-500">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setIsOpen}
+          >
             <IoIosClose />
           </button>
         </div>
