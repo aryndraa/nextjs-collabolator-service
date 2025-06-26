@@ -11,11 +11,11 @@ import FriendItem from "./FriendItem";
 import { Label } from "./ui/label";
 import { IoCopy } from "react-icons/io5";
 
-type groupInfoModal = {
+type groupInfoModalProps = {
   setOpenInfo: () => void;
 };
 
-export default function GroupInfoModal({ setOpenInfo }: groupInfoModal) {
+export default function GroupInfoModal({ setOpenInfo }: groupInfoModalProps) {
   const [info, setInfo] = useState<boolean>(false);
 
   return (
@@ -79,13 +79,13 @@ export default function GroupInfoModal({ setOpenInfo }: groupInfoModal) {
               className="py-6 focus:ring-primary-100/40! focus:border-primary-100!"
             />
             <div className="flex flex-col gap-3 p-3 border rounded-lg h-[220px] scroll-y overflow-y-scroll">
-              <FriendItem />
-              <FriendItem />
-              <FriendItem />
-              <FriendItem />
-              <FriendItem />
-              <FriendItem />
-              <FriendItem />
+              <FriendItem type={["invitation"]} />
+              <FriendItem type={["invitation"]} />
+              <FriendItem type={["invitation"]} />
+              <FriendItem type={["invitation"]} />
+              <FriendItem type={["invitation"]} />
+              <FriendItem type={["invitation"]} />
+              <FriendItem type={["invitation"]} />
             </div>
             <div className="grid w-full  items-center gap-3">
               <Label className="capitalize text-zinc-400 ">

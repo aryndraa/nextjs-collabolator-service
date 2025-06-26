@@ -9,6 +9,7 @@ import GroupMemberModal from "./GroupMemberModal";
 
 export default function GroupMessageHeader() {
   const [openInfo, setOpenInfo] = useState<boolean>(false);
+  const [openMember, setOpenMember] = useState<boolean>(false);
 
   return (
     <div className="flex items-center justify-between px-6 py-4 border-b bg-white lg:bg-transparent">
@@ -27,7 +28,10 @@ export default function GroupMessageHeader() {
         </div>
       </div>
       <div className="flex items-center gap-4 lg:gap-6 ">
-        <button className="text-xl flex items-center gap-2 text-zinc-500">
+        <button
+          onClick={() => setOpenMember(true)}
+          className="text-xl flex items-center gap-2 text-zinc-500 cursor-pointer"
+        >
           <FaRegUserCircle />
           <span className="text-sm font-medium hidden lg:block">Member</span>
         </button>
@@ -41,7 +45,9 @@ export default function GroupMessageHeader() {
       </div>
 
       {openInfo && <GroupInfoModal setOpenInfo={() => setOpenInfo(false)} />}
-      <GroupMemberModal />
+      {openMember && (
+        <GroupMemberModal setOpenMember={() => setOpenMember(false)} />
+      )}
     </div>
   );
 }

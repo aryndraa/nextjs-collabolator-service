@@ -1,15 +1,23 @@
-import React from "react";
 import Overlay from "./Overlay";
 import { IoIosClose } from "react-icons/io";
 import FriendItem from "./FriendItem";
 import { Input } from "./ui/input";
 
-export default function GroupMemberModal() {
+type GroupMemberModalProps = {
+  setOpenMember: () => void;
+};
+
+export default function GroupMemberModal({
+  setOpenMember,
+}: GroupMemberModalProps) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6">
         <div className="flex justify-end -mb-4">
-          <button className="text-3xl cursor-pointer text-zinc-500">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setOpenMember}
+          >
             <IoIosClose />
           </button>
         </div>
