@@ -5,6 +5,7 @@ import { IoSettings } from "react-icons/io5";
 import Button from "./Button";
 import { useState } from "react";
 import GroupMeetingModal from "./GroupMeetingModal";
+import GroupJoinMeetingModal from "./GroupJoinMeetingModal";
 
 export default function GroupMeetingCard() {
   const [openEdit, setOpenEdit] = useState<boolean>(false);
@@ -49,6 +50,8 @@ export default function GroupMeetingCard() {
       {openEdit && (
         <GroupMeetingModal setIsOpen={() => setOpenEdit(false)} type="update" />
       )}
+
+      <GroupJoinMeetingModal />
     </div>
   );
 }
