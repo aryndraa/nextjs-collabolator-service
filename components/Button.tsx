@@ -22,7 +22,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 cursor-pointer justify-center p-3 font-medium w-full text-sm  rounded-lg border ${buttonType()}`}
+      className={`flex items-center gap-2 cursor-pointer justify-center py-2 px-4 font-medium w-full text-sm  rounded-lg border ${buttonType()}`}
     >
       {children}
     </button>
