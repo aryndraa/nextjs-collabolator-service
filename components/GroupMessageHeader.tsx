@@ -5,6 +5,7 @@ import { MdArrowBackIos } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { FaRegUserCircle, FaInfoCircle } from "react-icons/fa";
 import GroupInfoModal from "./GroupInfoModal";
+import GroupMemberModal from "./GroupMemberModal";
 
 export default function GroupMessageHeader() {
   const [openInfo, setOpenInfo] = useState<boolean>(false);
@@ -40,6 +41,7 @@ export default function GroupMessageHeader() {
       </div>
 
       {openInfo && <GroupInfoModal setOpenInfo={() => setOpenInfo(false)} />}
+      <GroupMemberModal />
     </div>
   );
 }

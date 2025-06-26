@@ -16,7 +16,7 @@ type groupInfoModal = {
 };
 
 export default function GroupInfoModal({ setOpenInfo }: groupInfoModal) {
-  const [info, setInfo] = useState<boolean>(true);
+  const [info, setInfo] = useState<boolean>(false);
 
   return (
     <Overlay>
@@ -51,7 +51,7 @@ export default function GroupInfoModal({ setOpenInfo }: groupInfoModal) {
                   : "text-zinc-500 bg-zinc-100"
               }`}
             >
-              Participant
+              Invite
             </button>
           </div>
         </div>
