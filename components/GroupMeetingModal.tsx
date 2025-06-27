@@ -5,12 +5,21 @@ import { InputLabel } from "./InputLabel";
 import { DatePicker } from "./DatePicker";
 import Button from "./Button";
 
-export default function GroupMeetingModal() {
+type GroupMeetingModalProps = {
+  setIsOpen: () => void;
+};
+
+export default function GroupMeetingModal({
+  setIsOpen,
+}: GroupMeetingModalProps) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6">
         <div className="flex justify-end -mb-4">
-          <button className="text-3xl cursor-pointer text-zinc-500">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setIsOpen}
+          >
             <IoIosClose />
           </button>
         </div>

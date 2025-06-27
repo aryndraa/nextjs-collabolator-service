@@ -1,10 +1,14 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import GroupMeetingCard from "./GroupMeetingCard";
 import { GoPlus } from "react-icons/go";
 import Button from "./Button";
 import GroupMeetingModal from "./GroupMeetingModal";
 
 export default function GroupListMeetings() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div>
       <div className="flex flex-col gap-4 overflow-y-scroll max-h-[73dvh] scroll-y pb-24">
@@ -25,7 +29,7 @@ export default function GroupListMeetings() {
         </div>
       </div>
       <div className="py-3 w-full border-t ">
-        <Button>
+        <Button onClick={() => setIsOpen(true)}>
           <span className="text-xl">
             <GoPlus />
           </span>
@@ -33,7 +37,7 @@ export default function GroupListMeetings() {
         </Button>
       </div>
 
-      <GroupMeetingModal />
+      {isOpen && <GroupMeetingModal setIsOpen={() => setIsOpen(false)} />}
     </div>
   );
 }
