@@ -4,6 +4,7 @@ import { IoIosClose } from "react-icons/io";
 import { InputLabel } from "./InputLabel";
 import { DatePicker } from "./DatePicker";
 import Button from "./Button";
+import { FaTrashAlt } from "react-icons/fa";
 
 type GroupMeetingModalProps = {
   setIsOpen: () => void;
@@ -45,7 +46,16 @@ export default function GroupMeetingModal({
             label="Meeting Links"
           />
           <DatePicker name="Date" />
-          <Button>Done</Button>
+          {type === "update" ? (
+            <div className="flex gap-3">
+              <Button>Update Meeting</Button>
+              <button className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100">
+                <FaTrashAlt />
+              </button>
+            </div>
+          ) : (
+            <Button>Done</Button>
+          )}
         </div>
       </div>
     </Overlay>
