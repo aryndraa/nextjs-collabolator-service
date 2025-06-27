@@ -7,10 +7,12 @@ import Button from "./Button";
 
 type GroupMeetingModalProps = {
   setIsOpen: () => void;
+  type?: string;
 };
 
 export default function GroupMeetingModal({
   setIsOpen,
+  type = "",
 }: GroupMeetingModalProps) {
   return (
     <Overlay>
@@ -24,7 +26,9 @@ export default function GroupMeetingModal({
           </button>
         </div>
         <div className="flex flex-col items-center mb-6">
-          <h1 className="text-xl font-semibold mb-1">Add new meeting</h1>
+          <h1 className="text-xl font-semibold mb-1">
+            {type === "update" ? "Update Meeting" : "Add New Meeting"}{" "}
+          </h1>
           <p>Schedule meeting for your team</p>
         </div>
         <div className="flex flex-col gap-6">

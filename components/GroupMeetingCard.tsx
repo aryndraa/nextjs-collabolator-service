@@ -3,8 +3,12 @@ import { AiOutlineLink } from "react-icons/ai";
 import Link from "next/link";
 import { IoSettings } from "react-icons/io5";
 import Button from "./Button";
+import { useState } from "react";
+import GroupMeetingModal from "./GroupMeetingModal";
 
 export default function GroupMeetingCard() {
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
+
   return (
     <div className="p-4 border rounded-lg bg-zinc-100">
       <div className="flex justify-between mb-4">
@@ -33,11 +37,18 @@ export default function GroupMeetingCard() {
         </div>
         <div className="flex items-center gap-2">
           <Button>Join Meeting</Button>
-          <button className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100">
+          <button
+            onClick={() => setOpenEdit(true)}
+            className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100"
+          >
             <IoSettings />
           </button>
         </div>
       </div>
+
+      {openEdit && (
+        <GroupMeetingModal setIsOpen={() => setOpenEdit(false)} type="update" />
+      )}
     </div>
   );
 }
