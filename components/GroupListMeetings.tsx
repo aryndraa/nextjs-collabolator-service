@@ -2,6 +2,7 @@ import React from "react";
 import GroupMeetingCard from "./GroupMeetingCard";
 import { GoPlus } from "react-icons/go";
 import Button from "./Button";
+import GroupMeetingModal from "./GroupMeetingModal";
 
 export default function GroupListMeetings() {
   return (
@@ -31,6 +32,8 @@ export default function GroupListMeetings() {
           New Meeting
         </Button>
       </div>
+
+      <GroupMeetingModal />
     </div>
   );
 }
