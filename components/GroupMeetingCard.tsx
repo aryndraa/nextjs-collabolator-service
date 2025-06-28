@@ -12,7 +12,7 @@ export default function GroupMeetingCard() {
   const [openJoin, setOpenJoin] = useState<boolean>(false);
 
   return (
-    <div className="p-4 border rounded-lg bg-zinc-100">
+    <div className="p-4 border rounded-lg bg-zinc-50">
       <div className="flex justify-between mb-4">
         <div>
           <h3 className="font-semibold">Meeting Title</h3>
