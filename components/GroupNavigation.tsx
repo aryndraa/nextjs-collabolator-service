@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./logo";
 import { GoPlus } from "react-icons/go";
 import GroupItem from "./GroupItem";
+import GroupCreateModal from "./GroupCreateModal";
 
 export default function GroupNavigation() {
   return (
@@ -20,6 +21,8 @@ export default function GroupNavigation() {
         <GroupItem />
         <GroupItem />
       </div>
+
+      <GroupCreateModal />
     </div>
   );
 }
