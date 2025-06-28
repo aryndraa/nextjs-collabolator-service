@@ -6,15 +6,17 @@ import { TextInputLabel } from "./TextInputLabel";
 import { DatePicker } from "./DatePicker";
 import FriendItem from "./FriendItem";
 import { Label } from "./ui/label";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrashAlt } from "react-icons/fa";
 import Button from "./Button";
 
 type GroupAssignmentModalProps = {
   setIsOpen: () => void;
+  type?: string;
 };
 
 export default function GroupAssignmentModal({
   setIsOpen,
+  type = "",
 }: GroupAssignmentModalProps) {
   return (
     <Overlay>
@@ -28,7 +30,9 @@ export default function GroupAssignmentModal({
           </button>
         </div>
         <div className="flex flex-col items-center mb-6">
-          <h1 className="text-xl font-semibold mb-1">Add New Task</h1>
+          <h1 className="text-xl font-semibold mb-1">
+            {type === "update" ? "Update Task" : "Add New Task"}
+          </h1>
           <p>Create a task and assign it to your team.</p>
         </div>
         <div className="flex flex-col gap-6">
@@ -55,7 +59,16 @@ export default function GroupAssignmentModal({
               <FriendItem />
             </div>
           </div>
-          <Button>Done</Button>
+          {type === "update" ? (
+            <div className="flex gap-3">
+              <Button>Update Meeting</Button>
+              <button className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100">
+                <FaTrashAlt />
+              </button>
+            </div>
+          ) : (
+            <Button>Done</Button>
+          )}
         </div>
       </div>
     </Overlay>

@@ -1,7 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
+import GroupAssignmentModal from "./GroupAssignmentModal";
 
 export default function GroupAssignmetCard() {
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
+
   return (
     <div className="p-4 border rounded-lg bg-zinc-100">
       <div className="flex justify-between mb-3 ">
@@ -32,11 +38,21 @@ export default function GroupAssignmetCard() {
               Petel Arrauw
             </span>
           </div>
-          <button className="flex cursor-pointer justify-center p-2 text-primary-100 rounded-lg text-lg font-medium border border-primary-100">
+          <button
+            onClick={() => setOpenEdit(true)}
+            className="flex cursor-pointer justify-center p-2 text-primary-100 rounded-lg text-lg font-medium border border-primary-100"
+          >
             <IoSettings />
           </button>
         </div>
       </div>
+
+      {openEdit && (
+        <GroupAssignmentModal
+          setIsOpen={() => setOpenEdit(false)}
+          type="update"
+        />
+      )}
     </div>
   );
 }
