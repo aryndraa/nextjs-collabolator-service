@@ -4,9 +4,12 @@ import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import GroupAssignmentModal from "./GroupAssignmentModal";
+import GroupAssignmentConfirmModal from "./GroupAssignmentConfirmModal";
 
 export default function GroupAssignmetCard() {
   const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
   return (
     <div className="p-4 border rounded-lg bg-zinc-100">
@@ -20,7 +23,12 @@ export default function GroupAssignmetCard() {
         <div>
           <input
             type="checkbox"
-            className="border-primary-100 size-4 rounded-lg"
+            checked={isChecked}
+            onClick={(e) => {
+              e.preventDefault();
+              setShowConfirmModal(true);
+            }}
+            className="border-primary-100 size-4 rounded-lg cursor-pointer"
           />
         </div>
       </div>
@@ -53,6 +61,8 @@ export default function GroupAssignmetCard() {
           type="update"
         />
       )}
+
+      <GroupAssignmentConfirmModal />
     </div>
   );
 }
