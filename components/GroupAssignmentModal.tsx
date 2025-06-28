@@ -9,12 +9,21 @@ import { Label } from "./ui/label";
 import { FaPlus } from "react-icons/fa";
 import Button from "./Button";
 
-export default function GroupAssignmentModal() {
+type GroupAssignmentModalProps = {
+  setIsOpen: () => void;
+};
+
+export default function GroupAssignmentModal({
+  setIsOpen,
+}: GroupAssignmentModalProps) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6">
         <div className="flex justify-end -mb-4">
-          <button className="text-3xl cursor-pointer text-zinc-500">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setIsOpen}
+          >
             <IoIosClose />
           </button>
         </div>
