@@ -12,7 +12,7 @@ export default function GroupAssignmetCard() {
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
   return (
-    <div className="p-4 border rounded-lg bg-zinc-50">
+    <div className="p-4 border rounded-lg bg-zinc-100">
       <div className="flex justify-between mb-3 ">
         <div>
           <h3 className=" font-semibold mb-0.5">Task Title</h3>
