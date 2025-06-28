@@ -5,12 +5,23 @@ import FriendItem from "./FriendItem";
 import Button from "./Button";
 import { Label } from "./ui/label";
 
-export default function GroupAssignmentConfirmModal() {
+type GroupAssignmentConfirmModalProps = {
+  setIsOpen: () => void;
+  onConfirm?: () => void;
+};
+
+export default function GroupAssignmentConfirmModal({
+  setIsOpen,
+  onConfirm,
+}: GroupAssignmentConfirmModalProps) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6 ">
         <div className="flex justify-end -mb-4">
-          <button className="text-3xl cursor-pointer text-zinc-500">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setIsOpen}
+          >
             <IoIosClose />
           </button>
         </div>
@@ -36,7 +47,7 @@ export default function GroupAssignmentConfirmModal() {
               <FriendItem />
             </div>
           </div>
-          <Button>Mark As Down</Button>
+          <Button onClick={onConfirm}>Mark As Down</Button>
         </div>
       </div>
     </Overlay>

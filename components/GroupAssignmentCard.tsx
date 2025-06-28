@@ -62,7 +62,15 @@ export default function GroupAssignmetCard() {
         />
       )}
 
-      <GroupAssignmentConfirmModal />
+      {showConfirmModal && (
+        <GroupAssignmentConfirmModal
+          setIsOpen={() => setShowConfirmModal(false)}
+          onConfirm={() => {
+            setIsChecked(true);
+            setShowConfirmModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }
