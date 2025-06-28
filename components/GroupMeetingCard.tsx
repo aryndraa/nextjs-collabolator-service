@@ -41,7 +41,7 @@ export default function GroupMeetingCard() {
           <Button onClick={() => setOpenJoin(true)}>Join Meeting</Button>
           <button
             onClick={() => setOpenEdit(true)}
-            className="flex justify-center p-2  rounded-lg text-lg font-medium border text-primary-100 border-primary-100"
+            className="flex justify-center p-2 cursor-pointer  rounded-lg text-lg font-medium border text-primary-100 border-primary-100"
           >
             <IoSettings />
           </button>

@@ -2,6 +2,7 @@ import React from "react";
 import GroupAssignmetCard from "./GroupAssignmentCard";
 import { GoPlus } from "react-icons/go";
 import Button from "./Button";
+import GroupAssignmentModal from "./GroupAssignmentModal";
 
 export default function GroupListAssignment() {
   return (
@@ -18,9 +19,11 @@ export default function GroupListAssignment() {
           <span className="text-xl">
             <GoPlus />
           </span>
-          New Meeting
+          New Assignment
         </Button>
       </div>
+
+      <GroupAssignmentModal />
     </div>
   );
 }
