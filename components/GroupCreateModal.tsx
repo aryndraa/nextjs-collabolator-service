@@ -6,12 +6,19 @@ import { DatePicker } from "./DatePicker";
 import Button from "./Button";
 import { IoIosClose } from "react-icons/io";
 
-export default function GroupCreateModal() {
+type GroupCreateModalProps = {
+  setIsOpen: () => void;
+};
+
+export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6">
         <div className="flex justify-end -mb-4">
-          <button className="text-3xl cursor-pointer text-zinc-500">
+          <button
+            className="text-3xl cursor-pointer text-zinc-500"
+            onClick={setIsOpen}
+          >
             <IoIosClose />
           </button>
         </div>
