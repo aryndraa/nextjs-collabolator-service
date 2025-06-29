@@ -6,15 +6,20 @@ import { FaUsers } from "react-icons/fa";
 import { FaRegUserCircle, FaInfoCircle } from "react-icons/fa";
 import GroupInfoModal from "./GroupInfoModal";
 import GroupMemberModal from "./GroupMemberModal";
+import { useGroup } from "@/contexts/GroupContext";
 
 export default function GroupMessageHeader() {
   const [openInfo, setOpenInfo] = useState<boolean>(false);
   const [openMember, setOpenMember] = useState<boolean>(false);
+  const { setGroupId } = useGroup();
 
   return (
     <div className="flex items-center justify-between px-6 py-4 border-b bg-white lg:bg-transparent">
       <div className="flex items-center gap-2">
-        <button className="text-xl text-zinc-400">
+        <button
+          className="text-xl text-zinc-400 cursor-pointer"
+          onClick={() => setGroupId(undefined)}
+        >
           <MdArrowBackIos />
         </button>
         <div className="flex items-center gap-4 text-zinc-600 bg-white">

@@ -1,10 +1,15 @@
+"use client";
+
 import React from "react";
 import GroupNavigation from "./GroupNavigation";
 import MobileGroupNavigation from "./MobileGroupNavigation";
 import DefaultScreen from "./DefaultScreen";
 import GroupScreen from "./GroupScreen";
+import { useGroup } from "@/contexts/GroupContext";
 
 export default function HomeContent() {
+  const { groupId } = useGroup();
+
   return (
     <div className="flex">
       <div>
@@ -14,9 +19,7 @@ export default function HomeContent() {
         <MobileGroupNavigation />
       </div>
 
-      <GroupScreen />
-
-      <DefaultScreen />
+      {groupId ? <GroupScreen /> : <DefaultScreen />}
     </div>
   );
 }
