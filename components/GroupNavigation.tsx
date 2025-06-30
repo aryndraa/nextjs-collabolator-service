@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Logo from "./logo";
 import { GoPlus } from "react-icons/go";
-import GroupItem from "./GroupItem";
 import GroupCreateModal from "./GroupCreateModal";
+import ListGroups from "./ListGroups";
 
 export default function GroupNavigation() {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
@@ -23,11 +23,7 @@ export default function GroupNavigation() {
           <GoPlus />
         </button>
       </div>
-      <div className="flex flex-col ">
-        <GroupItem />
-        <GroupItem />
-        <GroupItem />
-      </div>
+      <ListGroups />
 
       {openCreate && (
         <GroupCreateModal setIsOpen={() => setOpenCreate(false)} />
