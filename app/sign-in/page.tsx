@@ -1,6 +1,6 @@
+import AuthGoogle from "@/components/AuthGoogle";
 import React from "react";
 import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 
 export default function Page() {
   return (
@@ -16,13 +16,8 @@ export default function Page() {
           </p>
         </div>
         <div className="flex flex-col gap-4">
-          <button className="flex items-center justify-center gap-4 w-full p-3 border border-zinc-500 rounded-lg">
-            <span>
-              <FcGoogle />
-            </span>
-            Sign in with Google{" "}
-          </button>
-          <button className="flex items-center justify-center gap-4 w-full p-3 border border-zinc-500 bg-zinc-900 text-white rounded-lg">
+          <AuthGoogle />
+          <button className="flex cursor-pointer items-center justify-center gap-4 w-full p-3 border border-zinc-500 bg-zinc-900 text-white rounded-lg">
             <span>
               <FaGithub />
             </span>
