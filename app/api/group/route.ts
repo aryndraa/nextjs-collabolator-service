@@ -43,7 +43,13 @@ export async function GET() {
     },
   });
 
-  return NextResponse.json(groups, {
+  const sortedGroups = groups.sort((a, b) => {
+    const aDate = a.messageRecipients[0]?.message?.createdAt ?? new Date(0);
+    const bDate = b.messageRecipients[0]?.message?.createdAt ?? new Date(0);
+    return bDate.getTime() - aDate.getTime();
+  });
+
+  return NextResponse.json(sortedGroups, {
     status: 201,
   });
 }
