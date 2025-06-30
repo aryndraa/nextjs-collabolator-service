@@ -1,30 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@/utils/supabase/server";
+import { getAuthUserId } from "@/lib/helpers/getAuthUserId";
 
 export async function GET() {
-  const supabase = createClient();
-  const {
-    data: { user },
-    error,
-  } = await (await supabase).auth.getUser();
-
-  if (error || !user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const dbUser = await prisma.user.findFirst({
-    where: {
-      authUserId: user.id,
-    },
-  });
+  const userId = await getAuthUserId();
 
   const groups = await prisma.group.findMany({
     where: {
       participants: {
         some: {
-          userId: dbUser?.id,
+          userId,
         },
       },
     },
@@ -60,7 +46,6 @@ const groupSchema = z.object({
   deadlineProject: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
-  userId: z.number(),
 });
 
 export async function POST(req: Request) {
@@ -77,7 +62,9 @@ export async function POST(req: Request) {
     );
   }
 
-  const { name, description, deadlineProject, userId } = result.data;
+  const userId = await getAuthUserId();
+
+  const { name, description, deadlineProject } = result.data;
 
   const group = await prisma.group.create({
     data: {

@@ -16,7 +16,7 @@ export default function GroupItem({ group }: any) {
         <div className="text-start">
           <h3 className="font-medium ">{group?.name}</h3>
           <p className="text-sm text-zinc-400">
-            {group?.messageRecipients?.[0].message.text}
+            {group?.messageRecipients?.[0]?.message.text ?? "Send a message"}
           </p>
         </div>
       </div>
