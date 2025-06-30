@@ -1,10 +1,37 @@
 import { useGroup } from "@/contexts/GroupContext";
 import React from "react";
 import { FaUsers } from "react-icons/fa";
+import { Skeleton } from "./ui/skeleton";
 
-export default function GroupItem({ group }: any) {
+export default function GroupItem({ group, loading = false }: any) {
   const { setGroupId } = useGroup();
   console.log();
+
+  if (loading) {
+    <div>
+      <div className=" px-6 py-4 flex gap-2">
+        <Skeleton className="size-12  rounded-full" />
+        <div>
+          <Skeleton className="h-8  w-40 mb-2  rounded-lg" />
+          <Skeleton className="h-4  w-40 rounded-lg" />
+        </div>
+      </div>
+      <div className=" px-6 py-4 flex gap-2">
+        <Skeleton className="size-12  rounded-full" />
+        <div>
+          <Skeleton className="h-8  w-40 mb-2  rounded-lg" />
+          <Skeleton className="h-4  w-40 rounded-lg" />
+        </div>
+      </div>
+      <div className=" px-6 py-4 flex gap-2">
+        <Skeleton className="size-12  rounded-full" />
+        <div>
+          <Skeleton className="h-8  w-40 mb-2  rounded-lg" />
+          <Skeleton className="h-4  w-40 rounded-lg" />
+        </div>
+      </div>
+    </div>;
+  }
 
   return (
     <button

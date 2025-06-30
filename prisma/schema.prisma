@@ -27,6 +27,9 @@
 
     sentFriendRequests     Friend[] @relation("Sender")
     receivedFriendRequests Friend[] @relation("Receiver")
+
+    reads      MessageRead[]
+
   }
 
   model Group {
@@ -81,6 +84,20 @@
     group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)    
     message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
     replyTo Message? @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: SetNull)
+
+    reads      MessageRead[]
+  }
+
+  model MessageRead {
+    id                  Int       @id @default(autoincrement()) 
+    userId              Int
+    messageRecipientId  Int
+    isRead              Boolean @default(false)
+
+    user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    messageRecipient    MessageRecipient  @relation(fields: [messageRecipientId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, messageRecipientId]) 
   }
 
   model Friend {
@@ -94,6 +111,8 @@
     receiver User @relation("Receiver", fields: [receiverId], references: [id])
   
   }
+
+
 
   enum Role {
     MEMBER 
