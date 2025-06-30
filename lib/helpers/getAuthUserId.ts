@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { prisma } from "@/lib/prisma";
 
-export async function getAuthUser() {
+export async function getAuthUserId() {
   const supabase = createClient();
   const {
     data: { user },
