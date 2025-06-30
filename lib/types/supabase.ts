@@ -236,18 +236,21 @@ export type Database = {
       }
       User: {
         Row: {
+          authUserId: string | null
           avatarUrl: string | null
           createdAt: string
           displayName: string
           id: number
         }
         Insert: {
+          authUserId?: string | null
           avatarUrl?: string | null
           createdAt?: string
           displayName: string
           id?: number
         }
         Update: {
+          authUserId?: string | null
           avatarUrl?: string | null
           createdAt?: string
           displayName?: string

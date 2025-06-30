@@ -1,12 +1,49 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { GetGroupsResource } from "../_resources/group/GetGroupsResource";
+import { createClient } from "@/utils/supabase/server";
 
 export async function GET() {
-  const groups = await prisma.group.findMany();
+  const supabase = createClient();
+  const {
+    data: { user },
+    error,
+  } = await (await supabase).auth.getUser();
 
-  return NextResponse.json(GetGroupsResource.collection(groups), {
+  if (error || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const dbUser = await prisma.user.findFirst({
+    where: {
+      authUserId: user.id,
+    },
+  });
+
+  const groups = await prisma.group.findMany({
+    where: {
+      participants: {
+        some: {
+          userId: dbUser?.id,
+        },
+      },
+    },
+    include: {
+      messageRecipients: {
+        orderBy: {
+          message: {
+            createdAt: "desc",
+          },
+        },
+        take: 1,
+        include: {
+          message: true,
+        },
+      },
+    },
+  });
+
+  return NextResponse.json(groups, {
     status: 201,
   });
 }
