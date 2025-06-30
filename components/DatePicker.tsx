@@ -14,11 +14,12 @@ import {
 
 type DatePickerProps = {
   name: string;
+  value?: Date | undefined;
+  onChange?: (date: Date | undefined) => void;
 };
 
-export function DatePicker({ name }: DatePickerProps) {
+export function DatePicker({ name, value, onChange }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<Date | undefined>(undefined);
 
   return (
     <div className="flex flex-col gap-3">
@@ -32,17 +33,17 @@ export function DatePicker({ name }: DatePickerProps) {
             id="date"
             className=" justify-between font-normal"
           >
-            {date ? date.toLocaleDateString() : "Select date"}
+            {value ? value.toLocaleDateString() : "Select date"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
             mode="single"
-            selected={date}
+            selected={value}
             captionLayout="dropdown"
             onSelect={(date) => {
-              setDate(date);
+              onChange?.(date);
               setOpen(false);
             }}
           />

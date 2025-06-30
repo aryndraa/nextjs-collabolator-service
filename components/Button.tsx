@@ -4,12 +4,14 @@ type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
   type?: string;
+  disabled?: boolean;
 };
 
 export default function Button({
   children,
   onClick,
   type = "primary",
+  disabled = false,
 }: ButtonProps) {
   const buttonType = () => {
     if (type === "primary") {
@@ -22,6 +24,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className={`flex items-center gap-2 cursor-pointer justify-center py-2 px-4 font-medium w-full text-sm  rounded-lg border ${buttonType()}`}
     >
       {children}

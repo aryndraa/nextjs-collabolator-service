@@ -6,6 +6,8 @@ type InputLabelProps = {
   name: string;
   type: string;
   placeholder: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export function InputLabel({
@@ -13,6 +15,8 @@ export function InputLabel({
   type,
   placeholder,
   label = name,
+  value,
+  onChange,
 }: InputLabelProps) {
   return (
     <div className="grid w-full  items-center gap-3">
@@ -22,6 +26,8 @@ export function InputLabel({
       <Input
         type={type}
         id={name}
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         className="py-6 focus:ring-primary-100/40! focus:border-primary-100!"
       />
