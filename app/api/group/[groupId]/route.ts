@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { ShowGroupResource } from "../../_resources/group/ShowGroupResource";
+import { getAuthUserId } from "@/lib/helpers/getAuthUserId";
 
 export async function GET(
   _: Request,
@@ -19,10 +20,7 @@ export async function GET(
 const groupSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().nullable(),
-  deadlineProject: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
-  userId: z.number(),
+  deadlineProject: z.string().min(1, "Deadline is required"),
 });
 
 export async function PUT(
@@ -42,7 +40,9 @@ export async function PUT(
     );
   }
 
-  const { name, description, deadlineProject, userId } = result.data;
+  const { name, description, deadlineProject } = result.data;
+
+  const userId = await getAuthUserId();
 
   const isAdmin = await prisma.groupParticipant.findFirst({
     where: {
