@@ -8,7 +8,7 @@ import GroupInfoModal from "./GroupInfoModal";
 import GroupMemberModal from "./GroupMemberModal";
 import { useGroup } from "@/contexts/GroupContext";
 
-export default function GroupMessageHeader() {
+export default function GroupMessageHeader({ group }: any) {
   const [openInfo, setOpenInfo] = useState<boolean>(false);
   const [openMember, setOpenMember] = useState<boolean>(false);
   const { setGroupId } = useGroup();
@@ -27,7 +27,9 @@ export default function GroupMessageHeader() {
             <FaUsers className="text-xl text-primary-200" />
           </span>
           <div>
-            <h3 className="font-medium text-base lg:text-base">Group Name</h3>
+            <h3 className="font-medium text-base lg:text-base">
+              {group?.name}
+            </h3>
             <p className="text-xs lg:text-sm text-zinc-400">2 online</p>
           </div>
         </div>

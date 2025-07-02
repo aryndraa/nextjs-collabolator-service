@@ -2,11 +2,30 @@ import React from "react";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
 import GroupMessageHeader from "./GroupMessageHeader";
+import { useGroup } from "@/contexts/GroupContext";
+import useSWR from "swr";
+import { Skeleton } from "./ui/skeleton";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function GroupMessage() {
+  const { groupId } = useGroup();
+
+  const { data: group, isLoading } = useSWR(`/api/group/${groupId}`, fetcher);
+
+  console.log(group);
+
+  if (isLoading) {
+    return (
+      <div className="w-[65%]">
+        <Skeleton className="w-full bg-zinc-300 rounded-lg h-full" />
+      </div>
+    );
+  }
+
   return (
     <div className="  lg:bg-white rounded-lg w-full lg:w-[65%] h-[100vdh] lg:h-[95dvh] flex flex-col relative lg:z-0 z-[9999]">
-      <GroupMessageHeader />
+      <GroupMessageHeader group={group} />
 
       <div className="flex-1 px-5 lg:px-12 py-4 overflow-y-scroll max-h-[78vh] lg:max-h-full flex flex-col gap-8 scroll-y pb-24 ">
         <Message user={true} content="Yes, let’s meet at 2 PM." />
