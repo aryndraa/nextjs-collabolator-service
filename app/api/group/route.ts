@@ -15,6 +15,17 @@ export async function GET() {
       },
     },
     include: {
+      _count: {
+        select: {
+          messageRecipients: {
+            where: {
+              reads: {
+                none: { userId },
+              },
+            },
+          },
+        },
+      },
       messageRecipients: {
         orderBy: {
           message: {

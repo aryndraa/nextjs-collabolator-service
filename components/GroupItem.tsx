@@ -21,7 +21,7 @@ export default function GroupItem({ group }: any) {
         </div>
       </div>
       <div className="size-6  text-xs bg-primary-100 font-medium text-white flex items-center justify-center rounded-full ">
-        12
+        {group?._count?.messageRecipients}
       </div>
     </button>
   );
