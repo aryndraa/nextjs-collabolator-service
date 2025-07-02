@@ -51,7 +51,9 @@ export default function GroupMessageHeader({ group }: any) {
         </button>
       </div>
 
-      {openInfo && <GroupInfoModal setOpenInfo={() => setOpenInfo(false)} />}
+      {openInfo && (
+        <GroupInfoModal group={group} setOpenInfo={() => setOpenInfo(false)} />
+      )}
       {openMember && (
         <GroupMemberModal setOpenMember={() => setOpenMember(false)} />
       )}

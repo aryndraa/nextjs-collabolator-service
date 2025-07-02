@@ -13,10 +13,19 @@ import { IoCopy } from "react-icons/io5";
 
 type groupInfoModalProps = {
   setOpenInfo: () => void;
+  group: any;
 };
 
-export default function GroupInfoModal({ setOpenInfo }: groupInfoModalProps) {
+export default function GroupInfoModal({
+  setOpenInfo,
+  group,
+}: groupInfoModalProps) {
   const [info, setInfo] = useState<boolean>(false);
+  const [form, setForm] = useState({
+    name: group?.name,
+    description: group?.description,
+    deadlineProject: group?.deadlineProject,
+  });
 
   return (
     <Overlay>
@@ -61,13 +70,32 @@ export default function GroupInfoModal({ setOpenInfo }: groupInfoModalProps) {
               name="name"
               type="text"
               placeholder="Emter your group name"
+              value={form?.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
             <TextInputLabel
               name="description"
               placeholder="Emter your group description"
               height={8}
+              value={form?.description ?? ""}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
-            <DatePicker name="Project Deadline" />
+            <DatePicker
+              name="Project Deadline"
+              value={
+                form.deadlineProject
+                  ? new Date(form.deadlineProject)
+                  : undefined
+              }
+              onChange={(date) =>
+                setForm({
+                  ...form,
+                  deadlineProject: date ? date.toISOString() : "",
+                })
+              }
+            />
             <div className="flex">
               <Button>Update Info</Button>
             </div>
