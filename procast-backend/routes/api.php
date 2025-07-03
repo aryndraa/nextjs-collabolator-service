@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('')
     ->group(function () {
         Route::prefix('auth')
+                ->controller(AuthController::class)
                 ->group(function () {
-                    Route::post('register', [AuthController::class, 'register']);
+                    Route::post('register', 'register')->name('register');
+                    Route::middleware('api')
+                        ->post('make-profile', 'makeProfile')
+                        ->name('make-profile');
                 });
     });
