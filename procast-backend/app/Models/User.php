@@ -22,7 +22,6 @@ class User extends Authenticatable implements JWTSubject
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -88,10 +87,5 @@ class User extends Authenticatable implements JWTSubject
     public function meetingParticipant(): BelongsToMany
     {
         return $this->belongsToMany(Meeting::class, 'meeting_participants', 'meeting_id', 'participant_id');
-    }
-
-    public function avatar(): MorphOne
-    {
-        return $this->morphOne(File::class, 'related');
     }
 }
