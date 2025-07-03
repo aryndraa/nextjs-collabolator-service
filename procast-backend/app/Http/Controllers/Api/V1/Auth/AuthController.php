@@ -19,6 +19,30 @@ class AuthController extends BaseController
     {
         $user = User::query()->create($request->all());
 
-        return $this->sendResponse($user, 'User Registered Successfully.');
+        if (! $token = auth()->attempt($request->only('email', 'password'))) {
+            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        }
+
+        $success = $this->respondWithToken($token);
+
+        return $this->sendResponse($success, 'User Registered Successfully.');
+    }
+
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return array
+     */
+    protected function respondWithToken($token): array
+    {
+        return [
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ];
     }
 }
+

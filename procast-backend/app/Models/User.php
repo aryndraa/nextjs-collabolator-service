@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
@@ -87,5 +88,10 @@ class User extends Authenticatable implements JWTSubject
     public function meetingParticipant(): BelongsToMany
     {
         return $this->belongsToMany(Meeting::class, 'meeting_participants', 'meeting_id', 'participant_id');
+    }
+
+    public function avatar(): MorphOne
+    {
+        return $this->morphOne(File::class, 'related');
     }
 }
