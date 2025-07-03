@@ -27,4 +27,9 @@ class Group extends Model
     {
         return $this->hasMany(Assignment::class);
     }
+
+    public function meetings(): HasMany
+    {
+        return $this->hasMany(Meeting::class);
+    }
 }
