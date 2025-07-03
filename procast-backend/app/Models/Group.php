@@ -22,4 +22,9 @@ class Group extends Model
     {
         return $this->hasMany(MessageRecipient::class);
     }
+
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }
