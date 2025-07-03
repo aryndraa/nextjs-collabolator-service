@@ -3,14 +3,17 @@ import { IoCloseCircle } from "react-icons/io5";
 
 type FriendItemProps = {
   type?: string[];
+  user?: any;
 };
 
-export default function FriendItem({ type = [] }: FriendItemProps) {
+export default function FriendItem({ type = [], user }: FriendItemProps) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center p-3 border rounded-lg bg-zinc-100">
       <div className="flex gap-2 items-center">
         <FaUserCircle className="text-2xl text-zinc-400" />
-        <span className="font-medium text-zinc-500 ">Dyven Siaw</span>
+        <span className="font-medium text-zinc-500 ">
+          {user?.name ?? "Member name"}
+        </span>
       </div>
       <div className="flex items-center gap-2">
         {type.includes("invitation") && (

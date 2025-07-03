@@ -1,7 +1,7 @@
 import Overlay from "./Overlay";
 import { IoIosClose } from "react-icons/io";
-import FriendItem from "./FriendItem";
 import { Input } from "./ui/input";
+import GroupMemberList from "./GroupMemberList";
 
 type GroupMemberModalProps = {
   setOpenMember: () => void;
@@ -30,12 +30,7 @@ export default function GroupMemberModal({
             placeholder={"Search Friend"}
             className="py-6 focus:ring-primary-100/40! focus:border-primary-100!"
           />
-          <div className="flex flex-col gap-3 p-3 border rounded-lg h-[320px] scroll-y overflow-y-scroll">
-            <FriendItem type={["kick", "friend"]} />
-            <FriendItem type={["kick"]} />
-            <FriendItem type={["kick"]} />
-            <FriendItem type={["kick", "friend"]} />
-          </div>
+          <GroupMemberList />
         </div>
       </div>
     </Overlay>

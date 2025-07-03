@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const participants = await prisma.groupParticipant.findMany({
     where: {
-      groupId: Number(params.groupId),
+      groupId: parseInt(params.groupId as string),
     },
     include: {
       user: true,

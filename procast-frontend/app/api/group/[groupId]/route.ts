@@ -9,7 +9,7 @@ export async function GET(
   { params }: { params: { groupId: string } }
 ) {
   const group = await prisma.group.findUnique({
-    where: { id: Number(params.groupId) },
+    where: { id: parseInt(params.groupId as string) },
   });
 
   if (!group) return NextResponse.json({ error: "Not found" }, { status: 404 });

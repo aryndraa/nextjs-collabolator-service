@@ -20,9 +20,13 @@ export default function GroupItem({ group }: any) {
           </p>
         </div>
       </div>
-      <div className="size-6  text-xs bg-primary-100 font-medium text-white flex items-center justify-center rounded-full ">
-        {group?._count?.messageRecipients}
-      </div>
+      {group?._count?.messageRecipients ? (
+        <div className="size-6  text-xs bg-primary-100 font-medium text-white flex items-center justify-center rounded-full ">
+          {group?._count?.messageRecipients}
+        </div>
+      ) : (
+        ""
+      )}
     </button>
   );
 }
