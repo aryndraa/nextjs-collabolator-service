@@ -4,23 +4,38 @@ namespace App\Http\Controllers\Api\V1\Profile;
 
 use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Auth\ProfileRequest;
+use App\Http\Resources\Api\V1\Profile\ShowProfile;
 use App\Models\File;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class ProfileController extends BaseController
 {
-    public function index(): JsonResponse
+    public function show(): ShowProfile
     {
         $userId = Auth::id();
+        $cacheKey = "user-profile:$userId";
 
-        $profile = Profile::query()
-            ->where('user_id', $userId)
-            ->with('avatar')
-            ->first();
+        if (Cache::has($cacheKey)) {
+            $profile = Cache::get($cacheKey);
 
-        return response()->json($profile);
+            return ShowProfile::make($profile);
+        }
+
+        $profile = User::query()
+            ->select('id', 'email')
+            ->with([
+                'profile' => fn ($query) => $query->select('id', 'user_id', 'name', 'bio', 'link') ,
+                'profile.avatar' => fn ($query) => $query->select('related_id', 'file_path') ,
+            ])
+            ->findOrFail($userId);
+
+        Cache::put($cacheKey, $profile, now()->addMinutes(60));
+
+        return ShowProfile::make($profile);
     }
 
     /**

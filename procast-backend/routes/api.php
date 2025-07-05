@@ -23,7 +23,7 @@ Route::prefix('')
                 Route::controller(ProfileController::class)
                     ->prefix('profile')
                     ->group(function () {
-                        Route::get('', 'index')->name('index');
+                        Route::get('', 'show')->name('show');
                         Route::post('', 'store')->name('store');
                     });
             });
