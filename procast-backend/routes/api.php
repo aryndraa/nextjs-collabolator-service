@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\Group\GroupController;
 use App\Http\Controllers\Api\V1\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,12 @@ Route::prefix('')
                         Route::get('', 'show')->name('show');
                         Route::post('', 'store')->name('store');
                         Route::put('', 'update')->name('update');
+                    });
+
+                Route::controller(GroupController::class)
+                    ->prefix('group')
+                    ->group(function () {
+                        Route::get('', 'index')->name('index');
                     });
             });
     });

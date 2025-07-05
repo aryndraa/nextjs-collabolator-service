@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends BaseController
 {
+    /**
+     * Show user profile
+     *
+     * @return ShowProfile
+     */
     public function show(): ShowProfile
     {
         $userId = Auth::id();
@@ -40,10 +45,9 @@ class ProfileController extends BaseController
     }
 
     /**
-     * Make user profile
+     * Create user profile
      *
      * @param ProfileRequest $request
-     *
      * @return JsonResponse
      */
     public function store(ProfileRequest $request): JsonResponse
@@ -65,6 +69,12 @@ class ProfileController extends BaseController
         return $this->sendResponse($profile, 'Profile Updated Successfully.');
     }
 
+    /**
+     * Update user profile
+     *
+     * @param ProfileRequest $request
+     * @return JsonResponse
+     */
     public function update(ProfileRequest $request): JsonResponse
     {
         $userId = Auth::id();
