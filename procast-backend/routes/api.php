@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\Profile\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,16 @@ Route::prefix('')
                     Route::middleware('api')
                         ->group(function () {
                             Route::delete('logout', 'logout')->name('logout');
-                            Route::post('make-profile', 'makeProfile')->name('make-profile');
                         });
                 });
 
-
+        Route::middleware('api')
+            ->group(function () {
+                Route::controller(ProfileController::class)
+                    ->prefix('profile')
+                    ->group(function () {
+                        Route::get('', 'index')->name('index');
+                        Route::post('', 'store')->name('store');
+                    });
+            });
     });
