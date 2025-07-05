@@ -58,6 +58,37 @@ class AuthController extends BaseController
 
 
     /**
+     * Get a JWT via given credentials.
+     *
+     * @return JsonResponse
+     */
+    public function login(): JsonResponse
+    {
+        $credentials = request(['email', 'password']);
+
+        if (! $token = auth()->attempt($credentials)) {
+            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        }
+
+        $success = $this->respondWithToken($token);
+
+        return $this->sendResponse($success, 'User login successfully.');
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+
+        return $this->sendResponse([], 'Successfully logged out.');
+    }
+
+
+    /**
      * Get the token array structure.
      *
      * @param  string $token

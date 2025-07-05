@@ -10,8 +10,13 @@ Route::prefix('')
                 ->controller(AuthController::class)
                 ->group(function () {
                     Route::post('register', 'register')->name('register');
+                    Route::post('login', 'login')->name('login');
                     Route::middleware('api')
-                        ->post('make-profile', 'makeProfile')
-                        ->name('make-profile');
+                        ->group(function () {
+                            Route::delete('logout', 'logout')->name('logout');
+                            Route::post('make-profile', 'makeProfile')->name('make-profile');
+                        });
                 });
+
+
     });
