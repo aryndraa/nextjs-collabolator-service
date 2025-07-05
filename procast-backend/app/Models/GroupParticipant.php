@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GroupParticipant extends Model
 {
-    protected $fillable = ['role'];
+    protected $fillable = [
+        'user_id',
+        'role'
+    ];
 
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
-    public function participants(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

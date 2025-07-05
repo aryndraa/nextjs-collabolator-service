@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Profile;
 
 use App\Http\Controllers\Api\V1\BaseController;
-use App\Http\Requests\Api\V1\Auth\ProfileRequest;
+use App\Http\Requests\Api\V1\Profile\ProfileRequest;
 use App\Http\Resources\Api\V1\Profile\ShowProfile;
 use App\Models\File;
 use App\Models\Profile;

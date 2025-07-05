@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Api\V1\BaseController;
-use App\Http\Requests\Api\V1\Auth\ProfileRequest;
 use App\Http\Requests\Api\V1\Auth\RegisterRequest;
-use App\Models\File;
-use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseController
 {
@@ -17,7 +13,7 @@ class AuthController extends BaseController
      * Register User
      *
      * @param RegisterRequest $request
-     * 
+     *
      * @return JsonResponse
      */
     public function register(RegisterRequest $request): JsonResponse
