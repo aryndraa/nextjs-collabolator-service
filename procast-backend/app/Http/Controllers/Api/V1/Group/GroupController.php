@@ -28,11 +28,11 @@ class GroupController extends BaseController
         $userId = Auth::id();
         $group = Group::query()->create($request->all());
 
-        $admin = $group->participants()->create([
+        $group->participants()->create([
             'user_id' => $userId,
             'role'    => 'admin'
         ]);
-        
+
         return $this->sendResponse($group, 'Group created successfully.');
     }
 }
