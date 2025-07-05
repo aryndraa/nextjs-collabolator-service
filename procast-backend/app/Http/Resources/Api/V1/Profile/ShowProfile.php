@@ -16,12 +16,12 @@ class ShowProfile extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'email' => $this->email,
+            'id'      => $this->id,
+            'email'   => $this->email,
             'profile' => [
-                'name' => $this->profile->name,
-                'bio' => $this->profile->bio,
-                'link' => $this->profile->link,
+                'name'   => $this->profile->name,
+                'bio'    => $this->profile->bio,
+                'link'   => $this->profile->link,
                 'avatar' => $this->profile->avatar->file_url,
             ]
         ];

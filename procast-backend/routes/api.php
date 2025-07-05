@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Profile\ProfileController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('')
@@ -12,19 +11,20 @@ Route::prefix('')
                 ->group(function () {
                     Route::post('register', 'register')->name('register');
                     Route::post('login', 'login')->name('login');
-                    Route::middleware('api')
+                    Route::middleware('auth:api')
                         ->group(function () {
                             Route::delete('logout', 'logout')->name('logout');
                         });
                 });
 
-        Route::middleware('api')
+        Route::middleware('auth:api')
             ->group(function () {
                 Route::controller(ProfileController::class)
                     ->prefix('profile')
                     ->group(function () {
                         Route::get('', 'show')->name('show');
                         Route::post('', 'store')->name('store');
+                        Route::put('', 'update')->name('update');
                     });
             });
     });

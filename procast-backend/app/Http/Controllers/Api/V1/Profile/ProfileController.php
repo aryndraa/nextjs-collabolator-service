@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends BaseController
 {
@@ -62,5 +63,26 @@ class ProfileController extends BaseController
         }
 
         return $this->sendResponse($profile, 'Profile Updated Successfully.');
+    }
+
+    public function update(ProfileRequest $request): JsonResponse
+    {
+        $userId = Auth::id();
+        $user   = User::query()->findOrFail($userId);
+
+        $user->profile()->update($request->all());
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+
+            if($user->profile->avatar) {
+                Storage::disk('public')->delete($user->profile->avatar->file_path);
+                $user->profile->avatar->delete();
+            }
+
+            File::uploadFile($avatar, $user->profile, 'avatar', 'user/avatars');
+        }
+
+        return $this->sendResponse($user->profile, 'Profile Updated Successfully.');
     }
 }
