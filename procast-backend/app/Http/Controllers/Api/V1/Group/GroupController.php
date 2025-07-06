@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Group;
 
 use App\Http\Controllers\Api\V1\BaseController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Group\UpSerGroupRequest;
 use App\Models\Group;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GroupController extends BaseController
@@ -35,4 +33,23 @@ class GroupController extends BaseController
 
         return $this->sendResponse($group, 'Group created successfully.');
     }
+
+    public function update(UpSerGroupRequest $request, Group $group): JsonResponse
+    {
+        $userId = Auth::id();
+        $isAdmin = $group->participants()
+            ->where('user_id', $userId)
+            ->where('role', 'admin')
+            ->exists();
+
+        if ($isAdmin) {
+            $group->update($request->all());
+
+            return $this->sendResponse($group, 'Group updated successfully.');
+        }
+
+        return $this->sendError('Only admin can update group.');
+    }
+
+
 }

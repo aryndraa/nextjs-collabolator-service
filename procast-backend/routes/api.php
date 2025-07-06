@@ -33,6 +33,7 @@ Route::prefix('')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
                         Route::post('', 'store')->name('store');
+                        Route::put('/{group}', 'update')->name('update');
                     });
             });
     });
