@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Group;
 
 use App\Http\Controllers\Api\V1\BaseController;
-use App\Http\Requests\Api\V1\Group\AddParticipantRequest;
+use App\Http\Requests\Api\V1\Group\ParticipantRequest;
 use App\Http\Requests\Api\V1\Group\UpSerGroupRequest;
 use App\Http\Resources\Api\V1\Group\ShowParticipantResource;
 use App\Models\Group;
@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class GroupController extends BaseController
 {
+    /**
+     * Show user group
+     *
+     * @return JsonResponse
+     */
     public function index(): JsonResponse
     {
         $userId = Auth::id();
@@ -23,6 +28,13 @@ class GroupController extends BaseController
         return response()->json($groups);
     }
 
+
+    /**
+     * Store group data
+     *
+     * @param UpSerGroupRequest $request
+     * @return JsonResponse
+     */
     public function store(UpSerGroupRequest $request): JsonResponse
     {
         $userId = Auth::id();
@@ -36,15 +48,18 @@ class GroupController extends BaseController
         return $this->sendResponse($group, 'Group created successfully.');
     }
 
+    /**
+     * Update group data
+     *
+     * @param UpSerGroupRequest $request
+     * @param Group $group
+     * @return JsonResponse
+     */
     public function update(UpSerGroupRequest $request, Group $group): JsonResponse
     {
         $userId = Auth::id();
-        $isAdmin = $group->participants()
-            ->where('user_id', $userId)
-            ->where('role', 'admin')
-            ->exists();
 
-        if ($isAdmin) {
+        if ($group->isAdminUser($userId)) {
             $group->update($request->all());
 
             return $this->sendResponse($group, 'Group updated successfully.');
@@ -53,27 +68,36 @@ class GroupController extends BaseController
         return $this->sendError('Only admin can update group.');
     }
 
-    public function addParticipant( AddParticipantRequest $request, Group $group): JsonResponse
+    /**
+     * Add participant to group
+     *
+     * @param ParticipantRequest $request
+     * @param Group $group
+     * @return JsonResponse
+     */
+    public function addParticipant(ParticipantRequest $request, Group $group): JsonResponse
     {
         $userId = Auth::id();
-        $isAdmin = $group->participants()
-            ->where('user_id', $userId)
-            ->where('role', 'admin')
-            ->exists();
 
-        if ($isAdmin) {
+        if ($group->isAdminUser($userId)) {
             $participant =  $group->participants()->create([
                 'user_id' => $request->get('user_id'),
                 'group_id' => $group,
                 'role' => 'member'
             ]);
 
-            return $this->sendResponse($participant, 'Group added successfully.');
+            return $this->sendResponse($participant, 'Participant added successfully.');
         }
 
         return $this->sendError('Only admin can add participant.');
     }
 
+    /**
+     * Show all participants in group
+     *
+     * @param Group $group
+     * @return ShowParticipantResource
+     */
     public function showParticipants(Group $group)
     {
         $group->load('participants.user.profile.avatar');
@@ -81,4 +105,18 @@ class GroupController extends BaseController
         return ShowParticipantResource::make($group);
     }
 
+    public function deleteParticipant(ParticipantRequest $request, Group $group)
+    {
+        $userId = Auth::id();
+
+        if($group->isAdminUser($userId)) {
+            $group->participants()
+                ->where('user_id', $userId)
+                ->delete();
+
+            return $this->sendResponse([], 'Participant deleted successfully.');
+        }
+
+        return $this->sendError('Only admin can delete participant.');
+    }
 }

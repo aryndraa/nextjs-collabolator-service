@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\V1\Group;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddParticipantRequest extends FormRequest
+class ParticipantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -38,6 +38,7 @@ Route::prefix('')
                             ->group(function () {
                                 Route::post('/participant', 'addParticipant')->name('addParticipant');
                                 Route::get('/participant', 'showParticipants')->name('showParticipants');
+                                Route::delete('/participant', 'deleteParticipant')->name('deleteParticipant');
                             });
                     });
             });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Group extends Model
 {
@@ -12,6 +13,16 @@ class Group extends Model
         'description',
         'deadline_project',
     ];
+
+    public function isAdminUser($userId = null): bool
+    {
+        $userId = $userId ?? Auth::id();
+
+        return $this->participants()
+            ->where('user_id', $userId)
+            ->where('role', 'admin')
+            ->exists();
+    }
 
     public function participants(): HasMany
     {
