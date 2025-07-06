@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Group;
 
 use App\Http\Controllers\Api\V1\BaseController;
+use App\Http\Requests\Api\V1\Group\AddParticipantRequest;
 use App\Http\Requests\Api\V1\Group\UpSerGroupRequest;
+use App\Http\Resources\Api\V1\Group\ShowParticipantResource;
 use App\Models\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -51,5 +53,32 @@ class GroupController extends BaseController
         return $this->sendError('Only admin can update group.');
     }
 
+    public function addParticipant( AddParticipantRequest $request, Group $group): JsonResponse
+    {
+        $userId = Auth::id();
+        $isAdmin = $group->participants()
+            ->where('user_id', $userId)
+            ->where('role', 'admin')
+            ->exists();
+
+        if ($isAdmin) {
+            $participant =  $group->participants()->create([
+                'user_id' => $request->get('user_id'),
+                'group_id' => $group,
+                'role' => 'member'
+            ]);
+
+            return $this->sendResponse($participant, 'Group added successfully.');
+        }
+
+        return $this->sendError('Only admin can add participant.');
+    }
+
+    public function showParticipants(Group $group)
+    {
+        $group->load('participants.user.profile.avatar');
+
+        return ShowParticipantResource::make($group);
+    }
 
 }

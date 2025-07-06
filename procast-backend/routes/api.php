@@ -34,6 +34,11 @@ Route::prefix('')
                         Route::get('', 'index')->name('index');
                         Route::post('', 'store')->name('store');
                         Route::put('/{group}', 'update')->name('update');
+                        Route::prefix('{group}')
+                            ->group(function () {
+                                Route::post('/participant', 'addParticipant')->name('addParticipant');
+                                Route::get('/participant', 'showParticipants')->name('showParticipants');
+                            });
                     });
             });
     });
