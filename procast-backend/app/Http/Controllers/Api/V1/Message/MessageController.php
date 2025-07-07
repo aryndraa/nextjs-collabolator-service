@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Message;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Message\UpSerMessageRequest;
+use App\Http\Resources\Api\V1\Message\MessageResource;
 use App\Models\File;
 use App\Models\Group;
 use App\Models\Message;
@@ -21,7 +22,7 @@ class MessageController extends Controller
             ->with(['message', 'message.user.profile', 'message.file'])
             ->get();
 
-        return response()->json($messages);
+        return MessageResource::collection($messages);
     }
 
     public function store(UpSerMessageRequest $request, Group $group)
