@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Group\ParticipantRequest;
 use App\Http\Requests\Api\V1\Group\UpSerGroupRequest;
 use App\Http\Resources\Api\V1\Group\ShowParticipantResource;
+use App\Http\Resources\Api\V1\Group\ShowResource;
 use App\Models\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,6 +29,13 @@ class GroupController extends BaseController
             })->get();
 
         return response()->json($groups);
+    }
+
+    public function show(Group $group): ShowResource
+    {
+        Gate::authorize('view', $group);
+
+        return ShowResource::make($group);
     }
 
 
@@ -100,7 +108,7 @@ class GroupController extends BaseController
      * @param Group $group
      * @return ShowParticipantResource
      */
-    public function showParticipants(Group $group, Request $request)
+    public function showParticipants(Group $group, Request $request): ShowParticipantResource
     {
         Gate::authorize('view', $group);
         $search = $request->get('search');
