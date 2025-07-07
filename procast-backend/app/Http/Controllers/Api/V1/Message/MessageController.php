@@ -17,9 +17,17 @@ class MessageController extends Controller
 {
     public function index(Group $group)
     {
+        Gate::authorize('view', $group);
+
         $messages = MessageRecipient::query()
             ->where('group_id', $group->id)
-            ->with(['message', 'message.user.profile', 'message.file'])
+            ->with([
+                'message',
+                'message.user.profile',
+                'message.file',
+                'replyToMessage',
+                'replyToMessage.user.profile'
+            ])
             ->get();
 
         return MessageResource::collection($messages);
@@ -29,7 +37,7 @@ class MessageController extends Controller
     {
         Gate::authorize('view', $group);
 
-        $userId = Auth::id();
+        $userId  = Auth::id();
         $message =  message::query()->make([
             'group_id' => $group,
             'user_id' => $userId,
@@ -62,4 +70,6 @@ class MessageController extends Controller
 
         return response()->json($message);
     }
+
+
 }

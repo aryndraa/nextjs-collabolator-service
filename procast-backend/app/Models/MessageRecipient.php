@@ -25,7 +25,7 @@ class MessageRecipient extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function replyMessage(): belongsTo
+    public function replyToMessage(): belongsTo
     {
         return $this->belongsTo(Message::class);
     }

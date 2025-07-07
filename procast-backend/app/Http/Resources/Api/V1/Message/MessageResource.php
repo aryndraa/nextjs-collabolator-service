@@ -26,13 +26,21 @@ class MessageResource extends JsonResource
                 ],
                 'file' =>
                     [
-                        'id' => $this->message->file->id ?? null,
+                        'id'       => $this->message->file->id ?? null,
                         'file_name' => $this->message->file->file_name ?? null,
                         'file_size' => $this->message->file->file_size ?? null,
                         'file_path' => $this->message->file->file_path ?? null,
-                        'file_url' => $this->message->file->file_url ?? null,
+                        'file_url'  => $this->message->file->file_url ?? null,
                     ] ?? null
             ],
+            'reply_to' => [
+                "id"   => $this->replyToMessage->id ?? null,
+                "type" => $this->replyToMessage->type ?? null,
+                "text" => $this->replyToMessage->text ?? null,
+                "user" => [
+                    "name" => $this->replyToMessage->user->profile->name ?? null,
+                ]
+            ] ?? null,
             'is_read'    => $this->is_read,
             'is_deleted' => $this->is_deleted,
             'is_edited'  => $this->is_edited,

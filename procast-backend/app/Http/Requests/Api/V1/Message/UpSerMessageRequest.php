@@ -25,7 +25,7 @@ class UpSerMessageRequest extends FormRequest
             "text"     => 'nullable|string',
             'type'     => 'nullable|string',
             'file'     => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf',
-            'reply_to' => 'nullable|integer|exists:message_recipients,id',
+            'reply_to' => 'nullable|integer|exists:messages,id',
         ];
     }
 }
