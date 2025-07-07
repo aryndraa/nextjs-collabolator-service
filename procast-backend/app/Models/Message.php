@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Message extends Model
 {
     protected $fillable = [
         'type',
+        'user_id',
         'text',
     ];
 
@@ -26,5 +28,10 @@ class Message extends Model
     public function recipientReply(): hasOne
     {
         return $this->hasOne(MessageRecipient::class);
+    }
+
+    public function file(): MorphOne
+    {
+        return $this->morphOne(File::class, 'related');
     }
 }

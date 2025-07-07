@@ -31,6 +31,12 @@ class GroupController extends BaseController
         return response()->json($groups);
     }
 
+    /**
+     * Show group info
+     *
+     * @param Group $group
+     * @return ShowResource
+     */
     public function show(Group $group): ShowResource
     {
         Gate::authorize('view', $group);
@@ -130,6 +136,13 @@ class GroupController extends BaseController
         return ShowParticipantResource::make($group);
     }
 
+    /**
+     * Delete Participant
+     *
+     * @param ParticipantRequest $request
+     * @param Group $group
+     * @return JsonResponse
+     */
     public function deleteParticipant(ParticipantRequest $request, Group $group)
     {
         $userId = Auth::id();

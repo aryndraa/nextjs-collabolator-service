@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MessageRecipient extends Model
 {
     protected $fillable = [
+        'group_id',
         'is_read',
         'is_deleted',
         'is_edited',

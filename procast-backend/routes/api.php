@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Group\GroupController;
+use App\Http\Controllers\Api\V1\Message\MessageController;
 use App\Http\Controllers\Api\V1\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,13 @@ Route::prefix('')
                                 Route::post('/participant', 'addParticipant')->name('addParticipant');
                                 Route::get('/participant', 'showParticipants')->name('showParticipants');
                                 Route::delete('/participant', 'deleteParticipant')->name('deleteParticipant');
+
+                                Route::controller(MessageController::class)
+                                    ->prefix('message')
+                                    ->group(function () {
+                                        Route::get('', 'index')->name('index');
+                                        Route::post('', 'store')->name('store');
+                                    });
                             });
                     });
             });
