@@ -87,6 +87,8 @@ class GroupController extends BaseController
      */
     public function addParticipant(ParticipantRequest $request, Group $group): JsonResponse
     {
+        Gate::authorize('view', $group);
+
         $userId = Auth::id();
 
         if ($group->isAdminUser($userId)) {
