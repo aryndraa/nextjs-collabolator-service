@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
+use App\Policies\GroupPolicy;
 
+#[UsePolicy(GroupPolicy::class)]
 class Group extends Model
 {
     protected $fillable = [

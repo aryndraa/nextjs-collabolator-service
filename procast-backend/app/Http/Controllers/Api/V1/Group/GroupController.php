@@ -8,7 +8,9 @@ use App\Http\Requests\Api\V1\Group\UpSerGroupRequest;
 use App\Http\Resources\Api\V1\Group\ShowParticipantResource;
 use App\Models\Group;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class GroupController extends BaseController
 {
@@ -98,9 +100,22 @@ class GroupController extends BaseController
      * @param Group $group
      * @return ShowParticipantResource
      */
-    public function showParticipants(Group $group)
+    public function showParticipants(Group $group, Request $request)
     {
-        $group->load('participants.user.profile.avatar');
+        Gate::authorize('view', $group);
+        $search = $request->get('search');
+
+        $group->load([
+            'participants' => function ($query) use ($search) {
+                $query->whereHas('user.profile', function ($q) use ($search) {
+                    if ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    }
+                })->with([
+                    'user.profile.avatar'
+                ]);
+            }
+        ]);
 
         return ShowParticipantResource::make($group);
     }
@@ -111,7 +126,7 @@ class GroupController extends BaseController
 
         if($group->isAdminUser($userId)) {
             $group->participants()
-                ->where('user_id', $userId)
+                ->where('user_id', $request->get('user_id'))
                 ->delete();
 
             return $this->sendResponse([], 'Participant deleted successfully.');
