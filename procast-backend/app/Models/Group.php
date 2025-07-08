@@ -27,6 +27,11 @@ class Group extends Model
             ->exists();
     }
 
+    public function latestMessageRecipient()
+    {
+        return $this->hasOne(MessageRecipient::class)->latestOfMany();
+    }
+
     public function participants(): HasMany
     {
         return $this->hasMany(GroupParticipant::class);

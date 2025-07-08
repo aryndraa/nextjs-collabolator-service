@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api\V1\Group;
 use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Group\ParticipantRequest;
 use App\Http\Requests\Api\V1\Group\UpSerGroupRequest;
+use App\Http\Resources\Api\V1\Group\IndexResource;
 use App\Http\Resources\Api\V1\Group\ShowParticipantResource;
 use App\Http\Resources\Api\V1\Group\ShowResource;
 use App\Models\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,17 +20,19 @@ class GroupController extends BaseController
     /**
      * Show user group
      *
-     * @return JsonResponse
+     * @return AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
         $userId = Auth::id();
         $groups = Group::query()
             ->whereHas('participants', function ($query) use ($userId) {
                 return $query->where('user_id', $userId);
-            })->get();
+            })
+            ->with('latestMessageRecipient.message.user.profile')
+            ->get();
 
-        return response()->json($groups);
+        return IndexResource::collection($groups);
     }
 
     /**
