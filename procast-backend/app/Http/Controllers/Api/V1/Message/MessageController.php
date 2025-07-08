@@ -71,5 +71,18 @@ class MessageController extends Controller
         return response()->json($message);
     }
 
+    public function update(UpSerMessageRequest $request, Group $group, Message $message)
+    {
+        Gate::authorize('update', $message);
 
+        $message->update([
+            'text' => $request->get('text'),
+        ]);
+
+        $message->recipient()->update([
+            'is_edited' => true
+        ]);
+
+        return response()->json($message);
+    }
 }

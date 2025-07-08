@@ -47,6 +47,7 @@ Route::prefix('')
                                     ->group(function () {
                                         Route::get('', 'index')->name('index');
                                         Route::post('', 'store')->name('store');
+                                        Route::patch('{message}', 'update')->name('update');
                                     });
                             });
                     });

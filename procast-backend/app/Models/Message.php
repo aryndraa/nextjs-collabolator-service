@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Policies\MessagePolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
+#[UsePolicy(MessagePolicy::class)]
 class Message extends Model
 {
     protected $fillable = [

@@ -114,6 +114,7 @@ class GroupController extends BaseController
      * Show all participants in group
      *
      * @param Group $group
+     * @param Request $request
      * @return ShowParticipantResource
      */
     public function showParticipants(Group $group, Request $request): ShowParticipantResource
