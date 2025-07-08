@@ -101,7 +101,7 @@ class MessageController extends BaseController
         Gate::authorize('update', $message);
 
         $isParticipant = $group->messageRecipients()
-            ->where('message_id', $message)
+            ->where('message_id', $message->id)
             ->exists();
 
         if(!$isParticipant) {
@@ -131,7 +131,7 @@ class MessageController extends BaseController
         Gate::authorize('delete', $message);
 
         $isParticipant = $group->messageRecipients()
-            ->where('message_id', $message)
+            ->where('message_id', $message->id)
             ->exists();
 
         if(!$isParticipant) {
@@ -147,5 +147,30 @@ class MessageController extends BaseController
         ]);
 
         return $this->sendResponse([], 'Message deleted successfully.');
+    }
+
+    public function pin(Group $group, Message $message): JsonResponse
+    {
+        $isParticipant = $group->messageRecipients()
+            ->where('message_id', $message->id)
+            ->exists();
+
+        if(!$isParticipant) {
+            return $this->sendError('You do not have permission');
+        }
+
+        if($message->recipient()->value('is_pin')){
+            $message->recipient()->update([
+                'is_pin' => false
+            ]);
+
+            return $this->sendResponse([], 'message remove pin');
+        }
+
+        $message->recipient()->update([
+            'is_pin' => true
+        ]);
+
+        return $this->sendResponse([], 'Message pin successfully.');
     }
 }
