@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Group\GroupController;
+use App\Http\Controllers\Api\V1\Meeting\MeetingController;
 use App\Http\Controllers\Api\V1\Message\MessageController;
 use App\Http\Controllers\Api\V1\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,13 @@ Route::prefix('')
                                         Route::delete('{message}', 'destroy')->name('destroy');
                                         Route::get('/pin', 'pinMessages')->name('pinMessages');
                                         Route::post('{message}/pin', 'pin')->name('pin');
+                                    });
+
+                                Route::controller(MeetingController::class)
+                                    ->prefix('meeting')
+                                    ->group(function () {
+                                        Route::get('', 'index')->name('index');
+                                        Route::post('', 'store')->name('store');
                                     });
                             });
                     });

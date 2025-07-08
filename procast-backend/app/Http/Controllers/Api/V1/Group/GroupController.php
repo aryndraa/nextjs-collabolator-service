@@ -148,11 +148,8 @@ class GroupController extends BaseController
         Gate::authorize('view', $group);
 
         $search = $request->get('search');
-        $groupId = $group->id;
-        $cacheKey = "group:{$groupId}:participants:search:" . ($search ?: 'all');
 
-        $group = Cache::remember($cacheKey, now()->addMinutes(5), function () use ($group, $search) {
-            $group->load([
+        $participants = $group->load([
                 'participants' => function ($query) use ($search) {
                     $query->whereHas('user.profile', function ($q) use ($search) {
                         if ($search) {
@@ -162,10 +159,7 @@ class GroupController extends BaseController
                 }
             ]);
 
-            return $group;
-        });
-
-        return ShowParticipantResource::make($group);
+        return ShowParticipantResource::make($participants);
     }
 
     /**
