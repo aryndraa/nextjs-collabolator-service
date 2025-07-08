@@ -48,6 +48,7 @@ Route::prefix('')
                                         Route::get('', 'index')->name('index');
                                         Route::post('', 'store')->name('store');
                                         Route::patch('{message}', 'update')->name('update');
+                                        Route::delete('{message}', 'destroy')->name('destroy');
                                     });
                             });
                     });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Message;
 
+use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Message\UpSerMessageRequest;
 use App\Http\Resources\Api\V1\Message\MessageResource;
@@ -9,13 +10,22 @@ use App\Models\File;
 use App\Models\Group;
 use App\Models\Message;
 use App\Models\MessageRecipient;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class MessageController extends Controller
+class MessageController extends BaseController
 {
-    public function index(Group $group)
+
+    /**
+     * Show all message in group
+     *
+     * @param Group $group
+     * @return AnonymousResourceCollection
+     */
+    public function index(Group $group): AnonymousResourceCollection
     {
         Gate::authorize('view', $group);
 
@@ -33,7 +43,14 @@ class MessageController extends Controller
         return MessageResource::collection($messages);
     }
 
-    public function store(UpSerMessageRequest $request, Group $group)
+    /**
+     * Update message & recipient
+     *
+     * @param UpSerMessageRequest $request
+     * @param Group $group
+     * @return JsonResponse
+     */
+    public function store(UpSerMessageRequest $request, Group $group): JsonResponse
     {
         Gate::authorize('view', $group);
 
@@ -68,12 +85,28 @@ class MessageController extends Controller
 
         $message->recipient()->save($recipient);
 
-        return response()->json($message);
+        return $this->sendResponse($message, 'Message created successfully.');
     }
 
-    public function update(UpSerMessageRequest $request, Group $group, Message $message)
+    /**
+     * Update message & recipient
+     *
+     * @param UpSerMessageRequest $request
+     * @param Group $group
+     * @param Message $message
+     * @return JsonResponse
+     */
+    public function update(UpSerMessageRequest $request, Group $group, Message $message): JsonResponse
     {
         Gate::authorize('update', $message);
+
+        $isParticipant = $group->messageRecipients()
+            ->where('message_id', $message)
+            ->exists();
+
+        if(!$isParticipant) {
+            return $this->sendError('You do not have permission');
+        }
 
         $message->update([
             'text' => $request->get('text'),
@@ -83,6 +116,36 @@ class MessageController extends Controller
             'is_edited' => true
         ]);
 
-        return response()->json($message);
+        return $this->sendResponse($message, 'Message updated successfully.');
+    }
+
+    /**
+     * Delete message & update recipient
+     *
+     * @param Group $group
+     * @param Message $message
+     * @return JsonResponse
+     */
+    public function destroy(Group $group, Message $message): JsonResponse
+    {
+        Gate::authorize('delete', $message);
+
+        $isParticipant = $group->messageRecipients()
+            ->where('message_id', $message)
+            ->exists();
+
+        if(!$isParticipant) {
+            return $this->sendError('You do not have permission');
+        }
+
+        $message->update([
+            'text' => '',
+        ]);
+
+        $message->recipient()->update([
+            'is_deleted' => true
+        ]);
+
+        return $this->sendResponse([], 'Message deleted successfully.');
     }
 }
