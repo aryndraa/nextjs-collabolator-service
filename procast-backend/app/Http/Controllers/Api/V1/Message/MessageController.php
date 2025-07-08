@@ -149,6 +149,13 @@ class MessageController extends BaseController
         return $this->sendResponse([], 'Message deleted successfully.');
     }
 
+    /**
+     * toggle for pin message
+     *
+     * @param Group $group
+     * @param Message $message
+     * @return JsonResponse
+     */
     public function pin(Group $group, Message $message): JsonResponse
     {
         $isParticipant = $group->messageRecipients()
