@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assignment extends Model
@@ -20,8 +21,8 @@ class Assignment extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function participants(): HasMany
+    public function users(): BelongsToMany
     {
-        return $this->hasMany(AssignmentParticipant::class);
+        return $this->belongsToMany(User::class, 'assignment_participants', 'assignment_id', 'user_id');
     }
 }

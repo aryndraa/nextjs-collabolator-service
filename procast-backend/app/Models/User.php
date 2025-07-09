@@ -85,9 +85,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Message::class);
     }
 
-    public function assignments(): HasMany
+    public function assignments(): BelongsToMany
     {
-        return $this->hasMany(AssignmentParticipant::class);
+        return $this->belongsToMany(Assignment::class, 'assignment_participants', 'user_id', 'assignment_id');
     }
 
     public function meetingParticipant(): BelongsToMany

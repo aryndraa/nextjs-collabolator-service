@@ -71,6 +71,7 @@ Route::prefix('')
                                     ->prefix('assignment')
                                     ->group(function () {
                                         Route::get('', 'index')->name('index');
+                                        Route::post('', 'store')->name('store');
                                     });
                             });
                     });

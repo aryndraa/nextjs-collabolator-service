@@ -19,7 +19,7 @@ class Meeting extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function user(): BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'meeting_participants', 'meeting_id', 'user_id');
     }

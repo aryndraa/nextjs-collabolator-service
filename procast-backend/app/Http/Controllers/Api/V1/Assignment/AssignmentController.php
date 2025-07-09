@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1\Assignment;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Assignment\UpSerAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\Group;
-use Illuminate\Http\Request;
 
-class AssignmentController extends Controller
+class AssignmentController extends BaseController
 {
     public function index(Group $group)
     {
@@ -22,8 +21,8 @@ class AssignmentController extends Controller
         $assignment = Assignment::query()->make($request->all());
         $group->assignments()->save($assignment);
 
-        $assignment->participants()->
+        $assignment->users()->attach($request->user());
 
-
+        return $this->sendResponse($assignment, 'Assignment created successfully.');
     }
 }
