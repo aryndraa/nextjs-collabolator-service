@@ -25,8 +25,8 @@ class UpSerAssignmentRequest extends FormRequest
             'title'       => ['required', 'string'],
             'description' => ['required', 'string'],
             'deadline'    => ['required', 'date'],
-            'users_id'    => ['required', 'array'],
-            'users_id.*'  => ['required', 'integer', 'exists:users,id'],
+            'users_id'    => ['nullable', 'array'],
+            'users_id.*'  => ['nullable', 'integer', 'exists:users,id'],
         ];
     }
 }

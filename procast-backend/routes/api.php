@@ -73,6 +73,7 @@ Route::prefix('')
                                         Route::get('', 'index')->name('index');
                                         Route::post('', 'store')->name('store');
                                         Route::get('/{assignment}', 'show')->name('show');
+                                        Route::put('/{assignment}', 'update')->name('update');
                                     });
                             });
                     });

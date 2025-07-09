@@ -28,15 +28,28 @@ class AssignmentController extends BaseController
         $assignment = Assignment::query()->make($request->all());
         $group->assignments()->save($assignment);
 
-        $assignment->users()->attach($request->user());
+        if($request->has('users_id')) {
+            $assignment->users()->attach($request->user());
+        }
 
         return $this->sendResponse($assignment, 'Assignment created successfully.');
     }
 
-    public function show(Group $group, Assignment $assignment)
+    public function show(Group $group, Assignment $assignment): ShowResource
     {
         $assignment->load('users.profile.avatar');
 
         return ShowResource::make($assignment);
+    }
+
+    public function update(UpSerAssignmentRequest $request, Group $group, Assignment $assignment)
+    {
+        $assignment->update($request->all());
+
+        if($request->has('users_id')) {
+            $assignment->users()->attach($request->user());
+        }
+
+        return $this->sendResponse($assignment, 'Assignment updated successfully.');
     }
 }
