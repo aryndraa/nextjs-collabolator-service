@@ -59,7 +59,10 @@ Route::prefix('')
                                     ->prefix('meeting')
                                     ->group(function () {
                                         Route::get('', 'index')->name('index');
+                                        Route::get('/{meeting}', 'show')->name('show');
                                         Route::post('', 'store')->name('store');
+                                        Route::put('/{meeting}', 'update')->name('update');
+                                        Route::post('/{meeting}/join', 'join')->name('join');
                                     });
                             });
                     });
