@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Auth;
 
 class MeetingController extends BaseController
 {
+    /**
+     * Show all meetings in group
+     *
+     * @param Group $group
+     * @return AnonymousResourceCollection
+     */
     public function index(Group $group): AnonymousResourceCollection
     {
         $meetings = $group
@@ -26,6 +32,13 @@ class MeetingController extends BaseController
         return IndexResource::collection($meetings);
     }
 
+    /**
+     * Add new meeting to group
+     *
+     * @param UpSerMeetingRequest $request
+     * @param Group $group
+     * @return JsonResponse
+     */
     public function store(UpSerMeetingRequest $request, Group $group): JsonResponse
     {
         $meeting = $group
@@ -35,6 +48,13 @@ class MeetingController extends BaseController
         return response()->json($meeting);
     }
 
+    /**
+     * Show detail meeting and participants
+     *
+     * @param Group $group
+     * @param Meeting $meeting
+     * @return ShowResource
+     */
     public function show(Group $group, Meeting $meeting): ShowResource
     {
         $meeting->load('user.profile.avatar');
@@ -42,14 +62,29 @@ class MeetingController extends BaseController
         return ShowResource::make($meeting);
     }
 
-    public function update(UpSerMeetingRequest $request, Group $group, Meeting $meeting)
+    /**
+     * Update meeting
+     *
+     * @param UpSerMeetingRequest $request
+     * @param Group $group
+     * @param Meeting $meeting
+     * @return JsonResponse
+     */
+    public function update(UpSerMeetingRequest $request, Group $group, Meeting $meeting): JsonResponse
     {
         $meeting->update($request->validated());
 
         return response()->json($meeting);
     }
 
-    public function join(Group $group, Meeting $meeting)
+    /**
+     * joining user to meeting
+     *
+     * @param Group $group
+     * @param Meeting $meeting
+     * @return JsonResponse
+     */
+    public function join(Group $group, Meeting $meeting): JsonResponse
     {
         $userId = Auth::id();
 
@@ -62,7 +97,14 @@ class MeetingController extends BaseController
         return $this->sendResponse([], 'Already joined');
     }
 
-    public function destroy(Group $group, Meeting $meeting)
+    /**
+     * Delete meeting
+     *
+     * @param Group $group
+     * @param Meeting $meeting
+     * @return JsonResponse
+     */
+    public function destroy(Group $group, Meeting $meeting): JsonResponse
     {
         $meeting->delete();
 
