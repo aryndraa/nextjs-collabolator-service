@@ -57,7 +57,7 @@ class MeetingController extends BaseController
      */
     public function show(Group $group, Meeting $meeting): ShowResource
     {
-        $meeting->load('user.profile.avatar');
+        $meeting->load('users.profile.avatar');
 
         return ShowResource::make($meeting);
     }
@@ -88,7 +88,7 @@ class MeetingController extends BaseController
     {
         $userId = Auth::id();
 
-        if (!$meeting->user()->where('user_id', $userId)->exists()) {
+        if (!$meeting->users()->where('user_id', $userId)->exists()) {
             $meeting->users()->attach($userId);
 
             return $this->sendResponse([], 'Joined successfully.');

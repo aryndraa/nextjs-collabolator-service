@@ -19,13 +19,13 @@ class ShowResource extends JsonResource
             'title'        => $this->title,
             'date'         => $this->date,
             'url'          => $this->url,
-            'participants' => $this->user->map(function ($user) {
+            'participants' => $this->users->map(function ($user) {
                 return [
                     'id'     => $user->id,
                     'name'   => $user->profile->name,
                     'avatar' => $user->profile->avatar->file_url,
-                ];
-            })
+                ] ?? null;
+            }) ?? null
         ];
     }
 }
