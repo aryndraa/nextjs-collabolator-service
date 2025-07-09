@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Message;
 use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Message\UpSerMessageRequest;
+use App\Http\Resources\Api\V1\Message\MessagePinResource;
 use App\Http\Resources\Api\V1\Message\MessageResource;
 use App\Models\File;
 use App\Models\Group;
@@ -179,5 +180,22 @@ class MessageController extends BaseController
         ]);
 
         return $this->sendResponse([], 'Message pin successfully.');
+    }
+
+    /**
+     * show pin message in group
+     *
+     * @param Group $group
+     * @param Message $message
+     * @return AnonymousResourceCollection
+     */
+    public function pinMessages(Group $group, Message $message): AnonymousResourceCollection
+    {
+        $message =  $group->messageRecipients()
+            ->where('is_pin', true)
+            ->with('message')
+            ->get();
+
+        return  MessagePinResource::collection($message);
     }
 }

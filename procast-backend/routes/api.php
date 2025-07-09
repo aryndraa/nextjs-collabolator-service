@@ -50,6 +50,7 @@ Route::prefix('')
                                         Route::post('', 'store')->name('store');
                                         Route::patch('{message}', 'update')->name('update');
                                         Route::delete('{message}', 'destroy')->name('destroy');
+                                        Route::get('/pin', 'pinMessages')->name('pinMessages');
                                         Route::post('{message}/pin', 'pin')->name('pin');
                                     });
                             });
