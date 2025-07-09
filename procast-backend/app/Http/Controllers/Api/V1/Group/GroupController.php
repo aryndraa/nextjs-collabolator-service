@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
 class GroupController extends BaseController
@@ -25,12 +26,15 @@ class GroupController extends BaseController
     public function index(): AnonymousResourceCollection
     {
         $userId = Auth::id();
-        $groups = Group::query()
-            ->whereHas('participants', function ($query) use ($userId) {
-                return $query->where('user_id', $userId);
-            })
-            ->with('latestMessageRecipient.message.user.profile')
-            ->get();
+
+        $groups = Cache::remember("user:{$userId}:groups", now()->addMinutes(5), function () use ($userId) {
+            return Group::query()
+                ->whereHas('participants', function ($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                })
+                ->with('latestMessageRecipient.message.user.profile')
+                ->get();
+        });
 
         return IndexResource::collection($groups);
     }
@@ -65,6 +69,9 @@ class GroupController extends BaseController
             'role'    => 'admin'
         ]);
 
+        Cache::forget("user:{$userId}:groups");
+
+
         return $this->sendResponse($group, 'Group created successfully.');
     }
 
@@ -81,11 +88,24 @@ class GroupController extends BaseController
 
         if ($group->isAdminUser($userId)) {
             $group->update($request->all());
+            Cache::forget("user:{$userId}:groups");
 
             return $this->sendResponse($group, 'Group updated successfully.');
         }
 
         return $this->sendError('Only admin can update group.');
+    }
+
+    public function destroy(Group $group): JsonResponse
+    {
+        $userId = Auth::id();
+
+        if ($group->isAdminUser($userId)) {
+            $group->delete();
+            Cache::forget("user:{$userId}:groups");
+        }
+
+        return $this->sendResponse([], 'Group deleted successfully.');
     }
 
     /**
@@ -108,6 +128,8 @@ class GroupController extends BaseController
                 'role' => 'member'
             ]);
 
+            Cache::forget("group:{$group->id}:participants:search:all");
+
             return $this->sendResponse($participant, 'Participant added successfully.');
         }
 
@@ -124,19 +146,24 @@ class GroupController extends BaseController
     public function showParticipants(Group $group, Request $request): ShowParticipantResource
     {
         Gate::authorize('view', $group);
-        $search = $request->get('search');
 
-        $group->load([
-            'participants' => function ($query) use ($search) {
-                $query->whereHas('user.profile', function ($q) use ($search) {
-                    if ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                    }
-                })->with([
-                    'user.profile.avatar'
-                ]);
-            }
-        ]);
+        $search = $request->get('search');
+        $groupId = $group->id;
+        $cacheKey = "group:{$groupId}:participants:search:" . ($search ?: 'all');
+
+        $group = Cache::remember($cacheKey, now()->addMinutes(5), function () use ($group, $search) {
+            $group->load([
+                'participants' => function ($query) use ($search) {
+                    $query->whereHas('user.profile', function ($q) use ($search) {
+                        if ($search) {
+                            $q->where('name', 'like', '%' . $search . '%');
+                        }
+                    })->with('user.profile.avatar');
+                }
+            ]);
+
+            return $group;
+        });
 
         return ShowParticipantResource::make($group);
     }
@@ -156,6 +183,8 @@ class GroupController extends BaseController
             $group->participants()
                 ->where('user_id', $request->get('user_id'))
                 ->delete();
+
+            Cache::forget("group:{$group->id}:participants:search:all");
 
             return $this->sendResponse([], 'Participant deleted successfully.');
         }

@@ -17,7 +17,7 @@ class IndexResource extends JsonResource
         return [
             'id'      => $this->id,
             'name'    => $this->name,
-            'message' => $this->latestMessageRecipient->message->text,
+            'message' => $this->latestMessageRecipient->message->text ?? null,
         ];
     }
 }

@@ -36,6 +36,7 @@ Route::prefix('')
                         Route::post('', 'store')->name('store');
                         Route::get('/{group}', 'show')->name('show');
                         Route::put('/{group}', 'update')->name('update');
+                        Route::delete('/{group}', 'destroy')->name('destroy');
                         Route::prefix('{group}')
                             ->group(function () {
                                 Route::post('/participant', 'addParticipant')->name('addParticipant');
