@@ -62,6 +62,7 @@ Route::prefix('')
                                         Route::get('/{meeting}', 'show')->name('show');
                                         Route::post('', 'store')->name('store');
                                         Route::put('/{meeting}', 'update')->name('update');
+                                        Route::delete('/{meeting}', 'destroy')->name('destroy');
                                         Route::post('/{meeting}/join', 'join')->name('join');
                                     });
                             });

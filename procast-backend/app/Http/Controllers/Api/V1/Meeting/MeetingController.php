@@ -61,4 +61,11 @@ class MeetingController extends BaseController
 
         return $this->sendResponse([], 'Already joined');
     }
+
+    public function destroy(Group $group, Meeting $meeting)
+    {
+        $meeting->delete();
+
+        return $this->sendResponse([], 'Deleted successfully.');
+    }
 }
