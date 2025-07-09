@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Assignment;
 use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Assignment\UpSerAssignmentRequest;
 use App\Http\Resources\Api\V1\Assignment\IndexResource;
+use App\Http\Resources\Api\V1\Assignment\ShowResource;
 use App\Models\Assignment;
 use App\Models\Group;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -36,6 +37,6 @@ class AssignmentController extends BaseController
     {
         $assignment->load('users.profile.avatar');
 
-        return response()->json($assignment);
+        return ShowResource::make($assignment);
     }
 }
