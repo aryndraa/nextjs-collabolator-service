@@ -35,11 +35,11 @@ class MeetingController extends BaseController
         return response()->json($meeting);
     }
 
-    public function show(Group $group, Meeting $meeting)
+    public function show(Group $group, Meeting $meeting): ShowResource
     {
         $meeting->load('user.profile.avatar');
 
-        return response()->json($meeting);
+        return ShowResource::make($meeting);
     }
 
     public function update(UpSerMeetingRequest $request, Group $group, Meeting $meeting)
