@@ -72,6 +72,7 @@ Route::prefix('')
                                     ->group(function () {
                                         Route::get('', 'index')->name('index');
                                         Route::post('', 'store')->name('store');
+                                        Route::get('/{assignment}', 'show')->name('show');
                                     });
                             });
                     });

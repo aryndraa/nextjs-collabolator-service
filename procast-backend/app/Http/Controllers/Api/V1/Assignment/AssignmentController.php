@@ -31,4 +31,11 @@ class AssignmentController extends BaseController
 
         return $this->sendResponse($assignment, 'Assignment created successfully.');
     }
+
+    public function show(Group $group, Assignment $assignment)
+    {
+        $assignment->load('users.profile.avatar');
+
+        return response()->json($assignment);
+    }
 }
