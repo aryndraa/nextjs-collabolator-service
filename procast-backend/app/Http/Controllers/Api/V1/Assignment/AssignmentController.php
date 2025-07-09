@@ -59,4 +59,11 @@ class AssignmentController extends BaseController
 
         return $this->sendResponse($assignment, 'Assignment deleted successfully.');
     }
+
+    public function completing(Group $group, Assignment $assignment)
+    {
+        $assignment->update(['completed' => true]);
+
+        return $this->sendResponse($assignment, 'Assignment completed successfully.');
+    }
 }

@@ -75,6 +75,7 @@ Route::prefix('')
                                         Route::get('/{assignment}', 'show')->name('show');
                                         Route::put('/{assignment}', 'update')->name('update');
                                         Route::delete('/{assignment}', 'destroy')->name('destroy');
+                                        Route::patch('/{assignment}', 'completing')->name('completing');
                                     });
                             });
                     });
