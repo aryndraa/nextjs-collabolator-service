@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class GroupPolicy
 {
@@ -66,5 +67,16 @@ class GroupPolicy
     public function forceDelete(User $user, Group $group): bool
     {
         return false;
+    }
+
+    public function isAdmin(User $user, Group $group): Response
+    {
+        return $group->participants()
+            ->where('user_id', $user->id)
+            ->where('role', 'admin')
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You do not have permission');
+
     }
 }

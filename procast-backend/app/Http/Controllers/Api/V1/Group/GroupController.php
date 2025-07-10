@@ -118,22 +118,21 @@ class GroupController extends BaseController
     public function addParticipant(ParticipantRequest $request, Group $group): JsonResponse
     {
         Gate::authorize('view', $group);
+        Gate::authorize('isAdmin', $group);
 
-        $userId = Auth::id();
+        $userId = $request->get('user_id');
 
-        if ($group->isAdminUser($userId)) {
-            $participant =  $group->participants()->create([
-                'user_id' => $request->get('user_id'),
-                'group_id' => $group,
-                'role' => 'member'
-            ]);
-
-            Cache::forget("group:{$group->id}:participants:search:all");
-
-            return $this->sendResponse($participant, 'Participant added successfully.');
+        if($group->participants()->where('user_id', $userId)->exists()){
+            return $this->sendError('User is already a member of this group.');
         }
 
-        return $this->sendError('Only admin can add participant.');
+        $participant =  $group->participants()->create([
+            'user_id' => $userId,
+            'group_id' => $group,
+            'role' => 'member'
+        ]);
+
+        return $this->sendResponse($participant, 'Participant added successfully.');
     }
 
     /**
@@ -171,18 +170,14 @@ class GroupController extends BaseController
      */
     public function deleteParticipant(ParticipantRequest $request, Group $group)
     {
-        $userId = Auth::id();
+        Gate::authorize('view', $group);
+        Gate::authorize('isAdmin', $group);
 
-        if($group->isAdminUser($userId)) {
-            $group->participants()
-                ->where('user_id', $request->get('user_id'))
-                ->delete();
+        $group->participants()
+            ->where('user_id', $request->get('user_id'))
+            ->delete();
 
-            Cache::forget("group:{$group->id}:participants:search:all");
+        return $this->sendResponse([], 'Participant deleted successfully.');
 
-            return $this->sendResponse([], 'Participant deleted successfully.');
-        }
-
-        return $this->sendError('Only admin can delete participant.');
     }
 }

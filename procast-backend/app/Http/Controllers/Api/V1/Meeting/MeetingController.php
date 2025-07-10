@@ -12,6 +12,7 @@ use App\Models\Meeting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class MeetingController extends BaseController
 {
@@ -41,6 +42,8 @@ class MeetingController extends BaseController
      */
     public function store(UpSerMeetingRequest $request, Group $group): JsonResponse
     {
+        Gate::authorize('isAdmin', $group);
+
         $meeting = $group
             ->meetings()
             ->create($request->validated());
