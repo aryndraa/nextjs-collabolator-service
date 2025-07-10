@@ -22,9 +22,9 @@ class UpSerMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'    => 'required|string',
-            'date'     => 'required|date',
-            'url'      => 'required|string',
+            'title'    => ['required', 'string'],
+            'date'     => ['required', 'date'],
+            'url'      => ['required', 'string'],
         ];
     }
 }

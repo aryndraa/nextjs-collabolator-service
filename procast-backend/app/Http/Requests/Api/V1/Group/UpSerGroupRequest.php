@@ -22,9 +22,9 @@ class UpSerGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"             => "required|string",
-            "description"      => "required|string",
-            "deadline_project" => "required|string",
+            "name"             => ['required', 'string'],
+            "description"      => ['required', 'string'],
+            "deadline_project" => ['required', 'string'],
         ];
     }
 }

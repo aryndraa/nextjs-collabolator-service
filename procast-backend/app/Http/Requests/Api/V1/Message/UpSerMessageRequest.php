@@ -22,10 +22,10 @@ class UpSerMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "text"     => 'nullable|string',
-            'type'     => 'nullable|string',
-            'file'     => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf',
-            'reply_to' => 'nullable|integer|exists:messages,id',
+            "text"     =>  ['nullable', 'string'],
+            'type'     => ['nullable', 'string'],
+            'file'     => ['nullable', 'file', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'reply_to' => ['nullable', 'integer', 'exists:messages,id'],
         ];
     }
 }

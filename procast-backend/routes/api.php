@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Assignment\AssignmentController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Group\GroupController;
 use App\Http\Controllers\Api\V1\Meeting\MeetingController;
@@ -64,6 +65,12 @@ Route::prefix('')
                                         Route::put('/{meeting}', 'update')->name('update');
                                         Route::delete('/{meeting}', 'destroy')->name('destroy');
                                         Route::post('/{meeting}/join', 'join')->name('join');
+                                    });
+
+                                Route::controller(AssignmentController::class)
+                                    ->prefix('assignment')
+                                    ->group(function () {
+                                        Route::get('', 'index')->name('index');
                                     });
                             });
                     });

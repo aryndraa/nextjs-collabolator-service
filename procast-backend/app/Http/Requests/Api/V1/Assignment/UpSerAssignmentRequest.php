@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Profile;
+namespace App\Http\Requests\Api\V1\Assignment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class UpSerAssignmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,11 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => ['required', 'string'],
-            'bio'    => ['nullable', 'string'],
-            'link'   => ['nullable', 'string'],
-            'avatar' => ['nullable', 'file', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'title'       => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'deadline'    => ['required', 'date'],
+            'users_id'    => ['required', 'array'],
+            'users_id.*'  => ['required', 'integer', 'exists:users,id'],
         ];
     }
 }
