@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Assignment;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -77,6 +78,15 @@ class GroupPolicy
             ->exists()
             ? Response::allow()
             : Response::deny('You do not have permission');
+    }
 
+    public function canCompleting(User $user, Group $group, Assignment $assignment): Response
+    {
+        return $group->participants()
+            ->where('user_id', $user->id)
+            ->where('role', 'admin')
+            ->exists() ?? $assignment->users()->where('user_id', $user->id)
+            ? Response::allow()
+            : Response::deny('You do not have permission');
     }
 }

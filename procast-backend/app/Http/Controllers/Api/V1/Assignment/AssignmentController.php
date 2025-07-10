@@ -32,7 +32,15 @@ class AssignmentController extends BaseController
         $group->assignments()->save($assignment);
 
         if($request->has('users_id')) {
-            $assignment->users()->attach($request->user());
+            $users = $request->get('users_id');
+
+            foreach ($users as $user) {
+                $assigned = $assignment->users()->where('user_id', $users)->exists();
+
+                if(!$assigned) {
+                    $assignment->users()->attach($user);
+                }
+            }
         }
 
         return $this->sendResponse($assignment, 'Assignment created successfully.');
@@ -52,7 +60,15 @@ class AssignmentController extends BaseController
         $assignment->update($request->all());
 
         if($request->has('users_id')) {
-            $assignment->users()->attach($request->user());
+            $users = $request->get('users_id');
+
+            foreach ($users as $user) {
+                $assigned = $assignment->users()->where('user_id', $users)->exists();
+
+                if(!$assigned) {
+                    $assignment->users()->attach($user);
+                }
+            }
         }
 
         return $this->sendResponse($assignment, 'Assignment updated successfully.');
@@ -69,6 +85,8 @@ class AssignmentController extends BaseController
 
     public function completing(Group $group, Assignment $assignment)
     {
+        Gate::authorize('canCompleting', [$group, $assignment]);
+
         $assignment->update(['completed' => true]);
 
         return $this->sendResponse($assignment, 'Assignment completed successfully.');
