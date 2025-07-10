@@ -19,6 +19,11 @@ class AssignmentController extends Controller
 
     public function store(UpSerAssignmentRequest $request, Group $group)
     {
-        $group->
+        $assignment = Assignment::query()->make($request->all());
+        $group->assignments()->save($assignment);
+
+        $assignment->participants()->
+
+
     }
 }
