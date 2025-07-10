@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\Assignment\ShowResource;
 use App\Models\Assignment;
 use App\Models\Group;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Gate;
 
 class AssignmentController extends BaseController
 {
@@ -25,6 +26,8 @@ class AssignmentController extends BaseController
 
     public function store(UpSerAssignmentRequest $request, Group $group)
     {
+        Gate::authorize('isAdmin', $group);
+
         $assignment = Assignment::query()->make($request->all());
         $group->assignments()->save($assignment);
 
@@ -44,6 +47,8 @@ class AssignmentController extends BaseController
 
     public function update(UpSerAssignmentRequest $request, Group $group, Assignment $assignment)
     {
+        Gate::authorize('isAdmin', $group);
+
         $assignment->update($request->all());
 
         if($request->has('users_id')) {
@@ -55,6 +60,8 @@ class AssignmentController extends BaseController
 
     public function destroy(Group $group, Assignment $assignment)
     {
+        Gate::authorize('isAdmin', $group);
+
         $assignment->delete();
 
         return $this->sendResponse($assignment, 'Assignment deleted successfully.');
