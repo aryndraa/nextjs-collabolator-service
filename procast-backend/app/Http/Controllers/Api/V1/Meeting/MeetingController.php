@@ -75,6 +75,7 @@ class MeetingController extends BaseController
      */
     public function update(UpSerMeetingRequest $request, Group $group, Meeting $meeting): JsonResponse
     {
+        Gate::authorize('isAdmin', $group);
         $meeting->update($request->validated());
 
         return response()->json($meeting);
