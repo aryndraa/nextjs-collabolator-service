@@ -7,6 +7,7 @@ type InputLabelProps = {
   type: string;
   placeholder: string;
   value?: string;
+  required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -16,6 +17,7 @@ export function InputLabel({
   placeholder,
   label = name,
   value,
+  required = false,
   onChange,
 }: InputLabelProps) {
   return (
@@ -29,6 +31,7 @@ export function InputLabel({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        required={required}
         className="py-6 focus:ring-primary-100/40! focus:border-primary-100!"
       />
     </div>
