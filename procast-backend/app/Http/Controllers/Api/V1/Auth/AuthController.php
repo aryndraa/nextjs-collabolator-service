@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends BaseController
 {
@@ -44,7 +45,9 @@ class AuthController extends BaseController
 
         $success = $this->respondWithToken($token);
 
-        return $this->sendResponse($success, 'User login successfully.');
+        $cookie = cookie('jwt', $token, 60 * 24);
+
+        return $this->sendResponse($success, 'User login successfully.')->withCookie($cookie);
     }
 
     /**
@@ -55,6 +58,8 @@ class AuthController extends BaseController
     public function logout(): JsonResponse
     {
         auth()->logout();
+
+        $cookie = Cookie::forget('jwt');
 
         return $this->sendResponse([], 'Successfully logged out.');
     }
