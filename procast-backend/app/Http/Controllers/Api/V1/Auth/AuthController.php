@@ -36,7 +36,7 @@ class AuthController extends BaseController
      */
     public function login(): JsonResponse
     {
-        $credentials = request(['email', 'password']);
+      $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
