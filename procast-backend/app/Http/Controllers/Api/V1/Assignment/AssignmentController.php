@@ -8,11 +8,18 @@ use App\Http\Resources\Api\V1\Assignment\IndexResource;
 use App\Http\Resources\Api\V1\Assignment\ShowResource;
 use App\Models\Assignment;
 use App\Models\Group;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Gate;
 
 class AssignmentController extends BaseController
 {
+    /**
+     * Show all assignments in group
+     *
+     * @param Group $group
+     * @return AnonymousResourceCollection
+     */
     public function index(Group $group): AnonymousResourceCollection
     {
         $assignment = $group
@@ -24,7 +31,14 @@ class AssignmentController extends BaseController
         return IndexResource::collection($assignment);
     }
 
-    public function store(UpSerAssignmentRequest $request, Group $group)
+    /**
+     * Store assignment to group
+     *
+     * @param UpSerAssignmentRequest $request
+     * @param Group $group
+     * @return JsonResponse
+     */
+    public function store(UpSerAssignmentRequest $request, Group $group): JsonResponse
     {
         Gate::authorize('isAdmin', $group);
 
@@ -46,6 +60,13 @@ class AssignmentController extends BaseController
         return $this->sendResponse($assignment, 'Assignment created successfully.');
     }
 
+    /**
+     * show detail assigment
+     *
+     * @param Group $group
+     * @param Assignment $assignment
+     * @return ShowResource
+     */
     public function show(Group $group, Assignment $assignment): ShowResource
     {
         $assignment->load('users.profile.avatar');
@@ -53,6 +74,14 @@ class AssignmentController extends BaseController
         return ShowResource::make($assignment);
     }
 
+    /**
+     * Update detail assignment
+     *
+     * @param UpSerAssignmentRequest $request
+     * @param Group $group
+     * @param Assignment $assignment
+     * @return JsonResponse
+     */
     public function update(UpSerAssignmentRequest $request, Group $group, Assignment $assignment)
     {
         Gate::authorize('isAdmin', $group);
@@ -74,6 +103,13 @@ class AssignmentController extends BaseController
         return $this->sendResponse($assignment, 'Assignment updated successfully.');
     }
 
+    /**
+     * destroy assignment
+     *
+     * @param Group $group
+     * @param Assignment $assignment
+     * @return JsonResponse
+     */
     public function destroy(Group $group, Assignment $assignment)
     {
         Gate::authorize('isAdmin', $group);
@@ -83,6 +119,13 @@ class AssignmentController extends BaseController
         return $this->sendResponse($assignment, 'Assignment deleted successfully.');
     }
 
+    /**
+     * For user to completing the assignment
+     *
+     * @param Group $group
+     * @param Assignment $assignment
+     * @return JsonResponse
+     */
     public function completing(Group $group, Assignment $assignment)
     {
         Gate::authorize('canCompleting', [$group, $assignment]);
