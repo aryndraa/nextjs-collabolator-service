@@ -73,13 +73,16 @@ export function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <Button type="submit" loading={loading}>
                 Sign In
               </Button>
-              <Button variant="secondary">
-                <Link href={"/auth/sign-up"}>Sign Up</Link>
-              </Button>
+              <span className="flex gap-1 text-sm font-medium text-zinc-500">
+                Don&apos;t have account?
+                <Link href={"/auth/sign-up"} className="text-primary-100">
+                  Sign Up
+                </Link>
+              </span>
             </div>
           </form>
         </CardContent>

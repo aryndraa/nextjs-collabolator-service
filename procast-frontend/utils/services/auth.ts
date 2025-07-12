@@ -14,3 +14,21 @@ export async function login({
 
   return response.data;
 }
+
+export async function register({
+  email,
+  password,
+  passwordConfirm,
+}: {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}) {
+  const response = await axios.post("/api/auth/login", {
+    email,
+    password,
+    passwordConfirm,
+  });
+
+  return response;
+}

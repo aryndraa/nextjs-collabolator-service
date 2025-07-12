@@ -43,11 +43,14 @@ export default function RegisterForm() {
                 required={true}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <Button type="submit">Confirm</Button>
-              <Button variant="secondary">
-                <Link href={"/auth/sign-in"}>Sign in</Link>
-              </Button>
+              <span className="flex gap-1 text-sm font-medium text-zinc-500">
+                Already have account?
+                <Link href={"/auth/sign-in"} className="text-primary-100">
+                  Sign In
+                </Link>
+              </span>
             </div>
           </form>
         </CardContent>
