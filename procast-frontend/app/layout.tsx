@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
-import MenuBar from "@/components/MenuBar";
+import { ThemeProvider } from "@/components/theme-provider";
 import MenuBarWrapper from "@/components/MenuBarWrapper";
+import MenuBar from "@/components/MenuBar";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -21,7 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light" style={{ colorScheme: "light" }}>
+    <html
+      lang="en"
+      className="light"
+      style={{ colorScheme: "light" }}
+      suppressHydrationWarning
+    >
       <body className={`${outfit.variable}  antialiased overflow-y-hidden`}>
         <ThemeProvider
           attribute="class"

@@ -5,8 +5,6 @@ import { TextInputLabel } from "./TextInputLabel";
 import { DatePicker } from "./DatePicker";
 import Button from "./Button";
 import { IoIosClose } from "react-icons/io";
-import useSWRMutation from "swr/mutation";
-import { createGroup } from "@/lib/api/group";
 
 type GroupCreateModalProps = {
   setIsOpen: () => void;
@@ -19,20 +17,7 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
     deadlineProject: "",
   });
 
-  const { trigger, isMutating, error } = useSWRMutation(
-    "/api/group",
-    createGroup
-  );
-
-  const handleSubmit = async () => {
-    try {
-      const result = await trigger(form);
-      console.log("Group created:", result);
-      setIsOpen();
-    } catch (err: any) {
-      alert(err.message);
-    }
-  };
+  const handleSubmit = async () => {};
 
   return (
     <Overlay>
@@ -77,10 +62,9 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
             }
           />
           <div className="flex">
-            <Button onClick={handleSubmit} disabled={isMutating}>
-              {isMutating ? "Creating..." : "Create Group"}
+            <Button onClick={handleSubmit}>
+              {true ? "Creating..." : "Create Group"}
             </Button>
-            {error && <p className="text-red-500">{error.message}</p>}
           </div>
         </div>
       </div>

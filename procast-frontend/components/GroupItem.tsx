@@ -2,7 +2,7 @@ import { useGroup } from "@/contexts/GroupContext";
 import React from "react";
 import { FaUsers } from "react-icons/fa";
 
-export default function GroupItem({ group }: any) {
+export default function GroupItem({ group = null }: any) {
   const { setGroupId } = useGroup();
   console.log();
 
@@ -22,7 +22,7 @@ export default function GroupItem({ group }: any) {
       </div>
       {group?._count?.messageRecipients ? (
         <div className="size-6  text-xs bg-primary-100 font-medium text-white flex items-center justify-center rounded-full ">
-          {group?._count?.messageRecipients}
+          {group?._count?.messageRecipients} ?? 0
         </div>
       ) : (
         ""

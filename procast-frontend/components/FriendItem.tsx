@@ -6,7 +6,10 @@ type FriendItemProps = {
   user?: any;
 };
 
-export default function FriendItem({ type = [], user }: FriendItemProps) {
+export default function FriendItem({
+  type = [],
+  user = null,
+}: FriendItemProps) {
   return (
     <div className="flex justify-between items-center p-3 border rounded-lg bg-zinc-100">
       <div className="flex gap-2 items-center">

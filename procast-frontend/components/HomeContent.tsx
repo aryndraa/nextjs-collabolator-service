@@ -19,7 +19,7 @@ export default function HomeContent() {
         <MobileGroupNavigation />
       </div>
 
-      {groupId ? <GroupScreen /> : <DefaultScreen />}
+      {/* {groupId ? <GroupScreen /> : <DefaultScreen />} */}
     </div>
   );
 }

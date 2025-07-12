@@ -10,9 +10,6 @@ import { Input } from "./ui/input";
 import FriendItem from "./FriendItem";
 import { Label } from "./ui/label";
 import { IoCopy } from "react-icons/io5";
-import { updategroup } from "@/lib/api/group";
-import useSWRMutation from "swr/mutation";
-import { mutate } from "swr";
 
 type groupInfoModalProps = {
   setOpenInfo: () => void;
@@ -30,21 +27,7 @@ export default function GroupInfoModal({
     deadlineProject: group?.deadlineProject,
   });
 
-  const { trigger, isMutating, error } = useSWRMutation(
-    `/api/group/${group.id}`,
-    updategroup
-  );
-
-  const handleSubmit = async () => {
-    try {
-      const result = await trigger(form);
-      console.log("Group update", result);
-      setOpenInfo();
-      mutate("/api/group");
-    } catch (err: any) {
-      alert(err.message);
-    }
-  };
+  const handleSubmit = async () => {};
 
   return (
     <Overlay>
@@ -116,10 +99,9 @@ export default function GroupInfoModal({
               }
             />
             <div className="flex flex-col gap-3">
-              <Button onClick={handleSubmit} disabled={isMutating}>
-                {isMutating ? "Updateting..." : "Update Info"}
+              <Button onClick={handleSubmit}>
+                {true ? "Updateting..." : "Update Info"}
               </Button>
-              {error && <p className="text-red-500">{error.message}</p>}
             </div>
           </div>
         ) : (

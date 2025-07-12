@@ -27,9 +27,7 @@ export default function GroupMessageHeader({ group }: any) {
             <FaUsers className="text-xl text-primary-200" />
           </span>
           <div>
-            <h3 className="font-medium text-base lg:text-base">
-              {group?.name}
-            </h3>
+            <h3 className="font-medium text-base lg:text-base">Group Name</h3>
             <p className="text-xs lg:text-sm text-zinc-400">2 online</p>
           </div>
         </div>

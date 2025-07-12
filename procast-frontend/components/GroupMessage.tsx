@@ -2,20 +2,10 @@ import React from "react";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
 import GroupMessageHeader from "./GroupMessageHeader";
-import { useGroup } from "@/contexts/GroupContext";
-import useSWR from "swr";
 import { Skeleton } from "./ui/skeleton";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function GroupMessage() {
-  const { groupId } = useGroup();
-
-  const { data: group, isLoading } = useSWR(`/api/group/${groupId}`, fetcher);
-
-  console.log(group);
-
-  if (isLoading) {
+  if (false) {
     return (
       <div className="w-[65%]">
         <Skeleton className="w-full bg-zinc-300 rounded-lg h-full" />
