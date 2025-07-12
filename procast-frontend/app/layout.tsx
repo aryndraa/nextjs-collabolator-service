@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import MenuBarWrapper from "@/components/MenuBarWrapper";
+import { ThemeProvider } from "next-themes";
 import MenuBar from "@/components/MenuBar";
+import MenuBarWrapper from "@/components/MenuBarWrapper";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -38,7 +38,7 @@ export default function RootLayout({
             <div className="lg:hidden">
               <MenuBarWrapper />
             </div>
-            <div className="hidden lg:block">
+            <div className=" block">
               <MenuBar />
             </div>
           </div>
