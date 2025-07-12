@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
+interface JwtPayload {
+  id: number;
+  name?: string;
+  email?: string;
+  exp: number;
+  iat: number;
+  sub?: number; // jika kamu menggunakan `sub` sebagai ID
+}
+
 const secret = process.env.JWT_SECRET as string;
 
 export function middleware(req: NextRequest) {
@@ -13,13 +22,17 @@ export function middleware(req: NextRequest) {
   }
 
   try {
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, secret) as JwtPayload;
+
+    const userId = decoded.sub ?? decoded.id;
+    if (!userId) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+
     // Optional: taruh data user di header (untuk API)
     const requestHeaders = new Headers(req.headers);
-    requestHeaders.set(
-      "x-user-id",
-      String((decoded as any).sub || (decoded as any).id)
-    );
+    requestHeaders.set("x-user-id", String(userId));
+
     return NextResponse.next({
       request: {
         headers: requestHeaders,
