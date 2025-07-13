@@ -27,8 +27,8 @@ export function LoginForm() {
 
     try {
       await login({
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
       setLoading(false);

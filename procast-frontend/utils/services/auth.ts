@@ -24,10 +24,10 @@ export async function register({
   password: string;
   passwordConfirm: string;
 }) {
-  const response = await axios.post("/api/auth/login", {
+  const response = await axios.post("/api/auth/register", {
     email,
     password,
-    passwordConfirm,
+    password_confirmation: passwordConfirm,
   });
 
   return response;

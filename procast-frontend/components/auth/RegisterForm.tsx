@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import {
   Card,
@@ -10,8 +12,31 @@ import {
 import { InputLabel } from "../InputLabel";
 import Button from "../Button";
 import Link from "next/link";
+import { register } from "@/utils/services/auth";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirm, setpasswordConfirm] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await register({
+        email,
+        password,
+        passwordConfirm,
+      });
+
+      router.push("/profile/make-profile");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -21,19 +46,21 @@ export default function RegisterForm() {
           <CardDescription>Create your account </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6 mb-4">
               <InputLabel
                 name="email"
                 placeholder="example@gmail.com"
                 type="text"
                 required={true}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <InputLabel
                 name="password"
                 placeholder="******"
                 type="password"
                 required={true}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <InputLabel
                 name="password_confirmation"
@@ -41,6 +68,7 @@ export default function RegisterForm() {
                 label="Confirm Passsword"
                 type="password"
                 required={true}
+                onChange={(e) => setpasswordConfirm(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-4">
