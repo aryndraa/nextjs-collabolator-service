@@ -1,30 +1,28 @@
-import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET as string;
+const publicRoutes = ["/auth/sign-in"];
 
-export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const token = request.cookies.get("token");
 
+  console.log("Token di Middleware:", token);
+
+  // Jika route public, lanjut saja
+  if (publicRoutes.includes(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Jika tidak ada token dan route bukan public → redirect
   if (!token) {
-    return NextResponse.redirect(new URL("/auth/sign-in", req.url));
+    const loginUrl = new URL("/auth/sign-in", request.url);
+    return NextResponse.redirect(loginUrl);
   }
 
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-
-    const headers = new Headers(req.headers);
-    headers.set("x-user", JSON.stringify(decoded));
-
-    return NextResponse.next({ request: { headers } });
-  } catch (err) {
-    console.error("Invalid token:", err);
-    return NextResponse.redirect(new URL("/auth/sign-in", req.url));
-  }
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/",
-  ],
+  matcher: ["/((?!_next|favicon.ico|auth/sign-in).*)"], // jalankan middleware untuk semua route kecuali public
 };

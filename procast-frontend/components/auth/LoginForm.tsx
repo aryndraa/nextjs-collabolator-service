@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -24,8 +23,10 @@ export function LoginForm() {
     e.preventDefault();
 
     try {
-      await login(email, password);
-      router.push("/"); // arahkan ke dashboard setelah login
+      const response = await login(email, password);
+      console.log(response);
+
+      router.push("/");
     } catch (err) {
       setError("Email atau password salah");
       console.error(err);
