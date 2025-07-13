@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/utils/services/auth";
 import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
 
 export function LoginForm() {
   const router = useRouter();
@@ -74,9 +75,11 @@ export function LoginForm() {
             </div>
             <div className="flex flex-col gap-2">
               <Button type="submit" loading={loading}>
-                Login
+                Sign In
               </Button>
-              <Button variant="secondary">Sign Up</Button>
+              <Button variant="secondary">
+                <Link href={"/auth/sign-up"}>Sign Up</Link>
+              </Button>
             </div>
           </form>
         </CardContent>
