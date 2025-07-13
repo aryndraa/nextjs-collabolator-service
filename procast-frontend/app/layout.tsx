@@ -25,7 +25,7 @@ export default function RootLayout({
       lang="en"
       className="light"
       style={{ colorScheme: "light" }}
-      suppressHydrationWarning
+      suppressHydrationWarning={true}
     >
       <body className={`${outfit.variable}  antialiased overflow-y-hidden`}>
         <ThemeProvider

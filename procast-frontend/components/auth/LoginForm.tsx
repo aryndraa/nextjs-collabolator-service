@@ -15,21 +15,28 @@ import { login } from "@/utils/services/auth";
 
 export function LoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      const response = await login(email, password);
-      console.log(response);
+      await login({
+        email: email,
+        password: password,
+      });
 
+      setLoading(false);
       router.push("/");
     } catch (err) {
-      setError("Email atau password salah");
-      console.error(err);
+      setError(`Email atau password salah`);
+      setLoading(false);
+
+      console.log(err);
     }
   };
 
@@ -62,7 +69,9 @@ export function LoginForm() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Button type="submit">Login</Button>
+            <Button type="submit" loading={loading}>
+              Login
+            </Button>
             <Button variant="secondary">Sign Up</Button>
           </div>
         </form>
