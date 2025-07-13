@@ -27,7 +27,17 @@ class AuthController extends BaseController
 
         $success = $this->respondWithToken($token);
 
-        return $this->sendResponse($success, 'User Registered Successfully.');
+        $cookie = cookie(
+            'token',
+            $token,
+            60 * 24,
+            '/',
+            null,
+            false,  // secure
+            false
+        );
+
+        return $this->sendResponse($success, 'User Registered Successfully.')->cookie($cookie);
     }
 
     /**
@@ -39,15 +49,23 @@ class AuthController extends BaseController
     {
       $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth()->guard('api')->attempt($credentials)) {
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         }
 
         $success = $this->respondWithToken($token);
 
-        $cookie = cookie('jwt', $token, 60 * 24);
+        $cookie = cookie(
+            'token',
+            $token,
+            60 * 24,
+            '/',
+            null,
+            false,  // secure
+            false
+        );
 
-        return $this->sendResponse($success, 'User login successfully.')->withCookie($cookie);
+        return $this->sendResponse($success, 'User login successfully.')->cookie($cookie);
     }
 
     /**
