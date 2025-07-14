@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import MenuBar from "@/components/MenuBar";
 import MenuBarWrapper from "@/components/MenuBarWrapper";
+import ProfileGuard from "@/components/ProfileGuard";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -43,7 +44,9 @@ export default function RootLayout({
             </div>
           </div>
 
-          <main className="lg:ml-20 bg-[#F3F3F3] ">{children}</main>
+          <main className="lg:ml-20 bg-[#F3F3F3] ">
+            <ProfileGuard>{children}</ProfileGuard>
+          </main>
         </ThemeProvider>
       </body>
     </html>
