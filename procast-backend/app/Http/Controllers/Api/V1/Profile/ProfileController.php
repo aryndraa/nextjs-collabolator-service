@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends BaseController
 {
-    /**
-     * Show user profile
-     *
-     * @return ShowProfile
-     */
-    public function show(): ShowProfile
+
+    public function show()
     {
         $userId = Auth::id();
+
         $cacheKey = "user-profile:$userId";
+
+        $hasProfile = User::query()->has('profile')->find($userId);
+
+        if(!$hasProfile){
+            return $this->sendError('Profile Not Found', null);
+        }
 
         if (Cache::has($cacheKey)) {
             $profile = Cache::get($cacheKey);

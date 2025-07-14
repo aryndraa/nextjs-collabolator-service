@@ -5,7 +5,7 @@ const publicRoutes = ["/auth/sign-in", "/auth/sign-up"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("token");
+  const token = request.cookies.get("laravel_session");
 
   if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
