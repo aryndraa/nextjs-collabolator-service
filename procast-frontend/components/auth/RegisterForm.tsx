@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import {
   Card,
   CardContent,
@@ -20,9 +20,11 @@ export default function RegisterForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setpasswordConfirm] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await register({
@@ -31,8 +33,12 @@ export default function RegisterForm() {
         passwordConfirm,
       });
 
+      setLoading(false);
       router.push("/profile/make-profile");
     } catch (err) {
+      toast.error("Invalid Credential");
+
+      setLoading(false);
       console.log(err);
     }
   };
@@ -72,7 +78,9 @@ export default function RegisterForm() {
               />
             </div>
             <div className="flex flex-col gap-4">
-              <Button type="submit">Confirm</Button>
+              <Button type="submit" loading={loading}>
+                Confirm
+              </Button>
               <span className="flex gap-1 text-sm font-medium text-zinc-500">
                 Already have account?
                 <Link href={"/auth/sign-in"} className="text-primary-100">
