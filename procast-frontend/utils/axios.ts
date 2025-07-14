@@ -1,25 +1,29 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-  withCredentials: true,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    withCredentials: true,
+    headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+    },
 });
 
+
 instance.interceptors.request.use(
-  (config) => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("token"); // atau pakai cookies-next
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
+    (config) => {
+        const xsrfToken = Cookies.get("XSRF-TOKEN");
+
+        if (xsrfToken) {
+            config.headers["X-XSRF-TOKEN"] = decodeURIComponent(xsrfToken);
+            console.log("use token")
+        }
+
+        return config;
+    },
+    (error) => Promise.reject(error)
 );
+
 
 export default instance;

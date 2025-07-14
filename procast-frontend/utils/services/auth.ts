@@ -7,6 +7,9 @@ export async function login({
   email: string;
   password: string;
 }) {
+
+  await axios.get(`/sanctum/csrf-cookie`);
+
   const response = await axios.post("/api/auth/login", {
     email,
     password,

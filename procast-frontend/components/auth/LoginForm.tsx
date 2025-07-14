@@ -14,12 +14,15 @@ import { useRouter } from "next/navigation";
 import { login } from "@/utils/services/auth";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
+import { profile } from "@/utils/services/profile";
+import { useUser } from "@/lib/stores/user";
 
 export function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const setProfile = useUser((state) => state.setProfile);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ export function LoginForm() {
       });
 
       setLoading(false);
+
       router.push("/");
 
       toast.success("Sign In Successfuly");

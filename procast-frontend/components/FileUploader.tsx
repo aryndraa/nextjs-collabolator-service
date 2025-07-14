@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 export default function FileUploader({
@@ -30,7 +29,7 @@ export default function FileUploader({
   return (
     <div className="flex flex-col items-center gap-2">
       {preview ? (
-        <Image
+        <img
           src={preview}
           alt="Avatar Preview"
           className="w-20 h-20 rounded-full object-cover"

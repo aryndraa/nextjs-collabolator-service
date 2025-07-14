@@ -15,6 +15,12 @@ type UserState = {
 
 export const useUser = create<UserState>()((set) => ({
   profile: null,
-  setProfile: (profile) => set({ profile }),
-  clearProfile: () => set({ profile: null }),
+  setProfile: (profile) => {
+    localStorage.setItem("hasProfile", "true");
+    set({ profile });
+  },
+  clearProfile: () => {
+    localStorage.removeItem("hasProfile");
+    set({ profile: null });
+  },
 }));
