@@ -23,8 +23,10 @@ export default function ProfileForm() {
   const [name, setName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [link, setLink] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
@@ -36,11 +38,12 @@ export default function ProfileForm() {
       });
 
       setProfile(profile);
+      setLoading(false);
 
       router.replace("/");
     } catch (error) {
       toast.error("Failed to create profile");
-
+      setLoading(false);
       console.error("Error creating profile:", error);
     }
   };
