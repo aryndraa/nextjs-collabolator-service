@@ -83,7 +83,9 @@ export default function ProfileForm() {
               />
             </div>
             <div className="flex flex-col gap-4">
-              <Button type="submit">Sign In</Button>
+              <Button type="submit" loading={loading}>
+                Sign In
+              </Button>
             </div>
           </form>
         </CardContent>
