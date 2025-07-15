@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
+import { FaUser } from "react-icons/fa";
 
-export default function FileUploader({
+export default function AvatarUploader({
   onFileSelect,
 }: {
   onFileSelect: (file: File) => void;
@@ -27,25 +28,24 @@ export default function FileUploader({
   };
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      {preview ? (
-        <img
-          src={preview}
-          alt="Avatar Preview"
-          className="w-20 h-20 rounded-full object-cover"
-        />
-      ) : (
-        <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-sm text-gray-500">
-          No image
-        </div>
-      )}
-      <button
-        type="button"
-        onClick={handleClick}
-        className="text-sm text-blue-600 underline"
-      >
-        Choose Avatar
-      </button>
+    <button
+      className="flex flex-col items-center gap-2"
+      type="button"
+      onClick={handleClick}
+    >
+      <div>
+        {!preview ? (
+          <div className="w-28 h-28 text-2xl rounded-full bg-gray-200 flex items-center justify-center  text-gray-400">
+            <FaUser />
+          </div>
+        ) : (
+          <img
+            src={preview}
+            alt="Avatar Preview"
+            className="w-28 h-28 rounded-full object-cover"
+          />
+        )}
+      </div>
       <input
         type="file"
         accept="image/*"
@@ -53,6 +53,6 @@ export default function FileUploader({
         onChange={handleFileChange}
         hidden
       />
-    </div>
+    </button>
   );
 }

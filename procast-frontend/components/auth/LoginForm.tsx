@@ -40,10 +40,16 @@ export function LoginForm() {
         setProfile(userProfile);
         setLoading(false)
 
+        toast.success("Sign in successfully");
+
         router.replace("/");
       } catch (err: any) {
         if (err?.response?.status === 404) {
           setLoading(false)
+
+          toast.success("Sign in successfully");
+          toast.info("Complete your profile");
+
           router.replace("/profile/make-profile");
         } else {
           throw err;
