@@ -19,12 +19,14 @@ export default function ProfileGuard({
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const userProfile = await profile();
+      if (!getProfile) {
+        const userProfile = await profile();
 
-      if (userProfile) {
-        setProfile(userProfile);
-      } else if (!getProfile && !allowRoutes.includes(pathname)) {
-        router.push("/profile/make-profile");
+        if (userProfile) {
+          setProfile(userProfile);
+        } else if (!getProfile && !allowRoutes.includes(pathname)) {
+          router.push("/profile/make-profile");
+        }
       }
     };
 
