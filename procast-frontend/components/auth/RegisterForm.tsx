@@ -34,7 +34,9 @@ export default function RegisterForm() {
       });
 
       setLoading(false);
-      router.push("/profile/make-profile");
+      toast.error("Registration Success, Please Sign In");
+
+      router.replace("/auth/sign-in");
     } catch (err) {
       toast.error("Invalid Credential");
 
