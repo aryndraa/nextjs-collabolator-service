@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 import { login } from "@/utils/services/auth";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
-import {profile} from "@/utils/services/profile";
-import {useUser} from "@/lib/stores/user";
+import { profile } from "@/utils/services/profile";
+import { useUser } from "@/lib/stores/user";
 
 export function LoginForm() {
   const router = useRouter();
@@ -38,14 +38,14 @@ export function LoginForm() {
         const userProfile = await profile();
 
         setProfile(userProfile);
-        setLoading(false)
+        setLoading(false);
 
         toast.success("Sign in successfully");
 
         router.replace("/");
       } catch (err: any) {
         if (err?.response?.status === 404) {
-          setLoading(false)
+          setLoading(false);
 
           toast.success("Sign in successfully");
           toast.info("Complete your profile");

@@ -24,24 +24,11 @@ class AuthController extends BaseController
     {
         $user = User::query()->create($request->all());
 
-        $token = $user->createToken('token')->plainTextToken;
-        $success = $this->respondWithToken($token);
-
-        $cookie = cookie(
-            'token',
-            $token,
-            60 * 24,
-            '/',
-            null,
-            false,  // secure
-            false
-        );
-
-        return $this->sendResponse($success, 'User Registered Successfully.')->cookie($cookie);
+        return $this->sendResponse($user, 'User Registered Successfully.');
     }
 
     /**
-     * Get a JWT via given credentials.
+     * Get a Token via given credentials.
      * @param Request $request
      * @return JsonResponse
      */

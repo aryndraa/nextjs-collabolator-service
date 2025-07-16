@@ -22,7 +22,7 @@ class ShowProfile extends JsonResource
                 'name'   => $this->profile->name,
                 'bio'    => $this->profile->bio,
                 'link'   => $this->profile->link,
-                'avatar' => $this->profile->avatar->file_url,
+                'avatar' => $this->profile->avatar->file_url ?? null,
             ]
         ];
     }
