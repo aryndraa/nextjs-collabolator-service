@@ -1,19 +1,19 @@
 import { create } from "zustand";
 
-type Profile = {
+export type Profile = {
   name: string;
   bio: string | null;
   link: string | null;
   avatar: string | null;
 };
 
-type UserState = {
+interface UserState {
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
   profile: Profile | null;
   setProfile: (profile: Profile) => void;
   clearProfile: () => void;
-};
+}
 
 export const useUser = create<UserState>()((set) => ({
   isAuthenticated: false,
