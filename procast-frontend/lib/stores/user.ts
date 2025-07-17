@@ -8,12 +8,16 @@ type Profile = {
 };
 
 type UserState = {
+  isAuthenticated: boolean;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
   profile: Profile | null;
   setProfile: (profile: Profile) => void;
   clearProfile: () => void;
 };
 
 export const useUser = create<UserState>()((set) => ({
+  isAuthenticated: false,
+  setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
   profile: null,
   setProfile: (profile) => {
     localStorage.setItem("hasProfile", "true");

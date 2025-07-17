@@ -16,22 +16,25 @@ export default function ProfileGuard({
   const pathname = usePathname();
   const getProfile = useUser((state) => state.profile);
   const setProfile = useUser((state) => state.setProfile);
+  const isAuthenticated = useUser((state) => state.isAuthenticated);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      if (!getProfile) {
-        const userProfile = await profile();
+      if (isAuthenticated) {
+        if (!getProfile) {
+          const userProfile = await profile();
 
-        if (userProfile) {
-          setProfile(userProfile);
-        } else if (!getProfile && !allowRoutes.includes(pathname)) {
-          router.push("/profile/make-profile");
+          if (userProfile) {
+            setProfile(userProfile);
+          } else if (!getProfile && !allowRoutes.includes(pathname)) {
+            router.push("/profile/make-profile");
+          }
         }
       }
     };
 
     fetchProfile();
-  }, [getProfile, pathname, router, setProfile]);
+  }, [getProfile, pathname, router, setProfile, isAuthenticated]);
 
   return <>{children}</>;
 }

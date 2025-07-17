@@ -7,19 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useUser } from "@/lib/stores/user";
+import { login } from "@/utils/services/auth";
+import { profile } from "@/utils/services/profile";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import Button from "../Button";
 import { InputLabel } from "../InputLabel";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { login } from "@/utils/services/auth";
-import { ToastContainer, toast } from "react-toastify";
-import Link from "next/link";
-import { profile } from "@/utils/services/profile";
-import { useUser } from "@/lib/stores/user";
 
 export function LoginForm() {
   const router = useRouter();
   const setProfile = useUser((state) => state.setProfile);
+  const setIsAuthenticated = useUser((state) => state.setIsAuthenticated);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,6 +34,8 @@ export function LoginForm() {
         email,
         password,
       });
+
+      setIsAuthenticated(true);
 
       try {
         const userProfile = await profile();
