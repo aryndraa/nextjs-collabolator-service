@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import MenuBar from "@/components/MenuBar";
 import MenuBarWrapper from "@/components/MenuBarWrapper";
 import ProfileGuard from "@/components/ProfileGuard";
+import { ToastContainer } from "react-toastify";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -28,6 +29,7 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
       suppressHydrationWarning={true}
     >
+      <ToastContainer />
       <body className={`${outfit.variable}  antialiased overflow-y-hidden`}>
         <ThemeProvider
           attribute="class"

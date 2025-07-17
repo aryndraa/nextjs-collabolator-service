@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import {
   Card,
   CardContent,
@@ -47,7 +47,6 @@ export default function RegisterForm() {
 
   return (
     <>
-      <ToastContainer />
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Register Account</CardTitle>

@@ -13,7 +13,7 @@ import { profile } from "@/utils/services/profile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Button from "../Button";
 import { InputLabel } from "../InputLabel";
 
@@ -68,7 +68,6 @@ export function LoginForm() {
 
   return (
     <>
-      <ToastContainer />
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login to your account</CardTitle>

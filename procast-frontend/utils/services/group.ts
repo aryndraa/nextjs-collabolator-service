@@ -16,3 +16,9 @@ export async function createGroup(group: Omit<Group, "id">): Promise<Group> {
 
   return response.data;
 }
+
+export async function showGroup(id: string): Promise<Group> {
+  const response = await axios.get(`/api/group/${id}`);
+
+  return response.data;
+}

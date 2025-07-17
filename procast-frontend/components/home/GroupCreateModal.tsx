@@ -7,6 +7,7 @@ import { InputLabel } from "../InputLabel";
 import Overlay from "../Overlay";
 import { TextInputLabel } from "../TextInputLabel";
 import { createGroup } from "@/utils/services/group";
+import { toast } from "react-toastify";
 
 type GroupCreateModalProps = {
   setIsOpen: () => void;
@@ -25,6 +26,7 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       await createGroup({
         name: form.name,
@@ -38,8 +40,12 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
         description: form.description,
         deadline: form.deadlineProject,
       });
+
+      toast.success("Group created successfully!");
     } catch (error) {
       console.error("Error creating group:", error);
+
+      toast.error("Failed to create group. Please try again.");
     }
   };
 
