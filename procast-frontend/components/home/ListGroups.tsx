@@ -17,6 +17,7 @@ export default function ListGroups() {
         const data = await getGroups();
         setGroups(data.data);
       }
+      console.log(groups);
 
       setLoading(false);
     };

@@ -8,7 +8,11 @@ export async function getGroups() {
 }
 
 export async function createGroup(group: Omit<Group, "id">): Promise<Group> {
-  const response = await axios.post("/api/group/", JSON.stringify(group));
+  const response = await axios.post("/api/group/", {
+    name: group.name,
+    description: group.description,
+    deadline_project: group.deadline,
+  });
 
   return response.data;
 }

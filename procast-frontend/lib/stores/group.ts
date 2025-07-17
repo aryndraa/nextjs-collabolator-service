@@ -1,12 +1,10 @@
 import { create } from "zustand";
 
-export type Groups = [
-  {
-    id: number;
-    name: string;
-    message?: string | null;
-  }
-];
+export type Groups = {
+  id: number;
+  name: string;
+  message?: string | null;
+}[];
 
 export type Group = {
   id: number;
@@ -20,6 +18,7 @@ interface GroupState {
   group: Group | null;
   setGroups: (groups: Groups) => void;
   showGroup: (group: Group) => void;
+  optimisticCreateGroup: (group: Group) => void;
 }
 
 export const useGroup = create<GroupState>()((set) => ({
@@ -27,4 +26,6 @@ export const useGroup = create<GroupState>()((set) => ({
   group: null,
   setGroups: (groups) => set({ groups }),
   showGroup: (group) => set({ group }),
+  optimisticCreateGroup: (newGroup) =>
+    set((state) => ({ groups: [...(state.groups ?? []), newGroup] })),
 }));

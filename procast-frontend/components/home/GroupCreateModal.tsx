@@ -1,10 +1,12 @@
+import { useGroup } from "@/lib/stores/group";
 import React, { useState } from "react";
-import Overlay from "../Overlay";
-import { InputLabel } from "../InputLabel";
-import { TextInputLabel } from "../TextInputLabel";
-import { DatePicker } from "../DatePicker";
-import Button from "../Button";
 import { IoIosClose } from "react-icons/io";
+import Button from "../Button";
+import { DatePicker } from "../DatePicker";
+import { InputLabel } from "../InputLabel";
+import Overlay from "../Overlay";
+import { TextInputLabel } from "../TextInputLabel";
+import { createGroup } from "@/utils/services/group";
 
 type GroupCreateModalProps = {
   setIsOpen: () => void;
@@ -16,6 +18,30 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
     description: "",
     deadlineProject: "",
   });
+
+  const optimisticCreateGroup = useGroup(
+    (state) => state.optimisticCreateGroup
+  );
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await createGroup({
+        name: form.name,
+        description: form.description,
+        deadline: form.deadlineProject,
+      });
+
+      optimisticCreateGroup({
+        id: Date.now(),
+        name: form.name,
+        description: form.description,
+        deadline: form.deadlineProject,
+      });
+    } catch (error) {
+      console.error("Error creating group:", error);
+    }
+  };
 
   return (
     <Overlay>
@@ -32,7 +58,7 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
           <h1 className="text-xl font-semibold mb-1">Create Group</h1>
           <p>Create new group to collaborate with others</p>
         </div>
-        <div className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <InputLabel
             name="name"
             type="text"
@@ -60,9 +86,9 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
             }
           />
           <div className="flex">
-            <Button>Create Group </Button>
+            <Button type="submit">Create Group </Button>
           </div>
-        </div>
+        </form>
       </div>
     </Overlay>
   );
