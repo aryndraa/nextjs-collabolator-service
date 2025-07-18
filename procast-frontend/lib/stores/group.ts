@@ -10,7 +10,7 @@ export type Group = {
   id: number;
   name: string;
   description: string | null;
-  deadline: string | null;
+  deadline_project: string | null;
 };
 
 interface GroupState {

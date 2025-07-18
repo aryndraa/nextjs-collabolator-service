@@ -12,7 +12,6 @@ export default function GroupMessage({ groupId }: { groupId: number }) {
   const [loading, setLoading] = useState<boolean>(true);
 
   const group = groupCache[groupId];
-
   useEffect(() => {
     if (!groupCache[groupId]) {
       (async () => {
@@ -44,7 +43,7 @@ export default function GroupMessage({ groupId }: { groupId: number }) {
       <GroupMessageHeader
         id={group!.id}
         name={group!.name}
-        deadline={group!.deadline}
+        deadline_project={group.deadline_project}
         description={group!.description}
       />
 

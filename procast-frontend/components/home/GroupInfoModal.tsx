@@ -10,10 +10,11 @@ import { Input } from "../ui/input";
 import FriendItem from "../FriendItem";
 import { Label } from "../ui/label";
 import { IoCopy } from "react-icons/io5";
+import { Group } from "@/lib/stores/group";
 
 type groupInfoModalProps = {
   setOpenInfo: () => void;
-  group: any;
+  group: Group;
 };
 
 export default function GroupInfoModal({
@@ -24,7 +25,7 @@ export default function GroupInfoModal({
   const [form, setForm] = useState({
     name: group?.name,
     description: group?.description,
-    deadlineProject: group?.deadlineProject,
+    deadlineProject: group?.deadline_project,
   });
 
   const handleSubmit = async () => {
