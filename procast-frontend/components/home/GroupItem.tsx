@@ -16,7 +16,7 @@ export default function GroupItem({
 
   return (
     <button
-      className="px-6 py-4 mx-3 lg:mx-0 rounded-lg lg:rounded-none cursor-pointer hover:bg-zinc-50 flex items-center justify-between transition ease-in-out  bg-white w-full "
+      className="px-6 py-4 rounded-lg lg:rounded-none cursor-pointer hover:bg-zinc-50 flex items-center justify-between transition ease-in-out  bg-white w-full "
       onClick={() => setGroupId(group.id)}
     >
       <div className="flex items-center gap-4  text-zinc-600">

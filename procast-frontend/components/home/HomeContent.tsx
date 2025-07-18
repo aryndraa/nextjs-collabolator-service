@@ -12,7 +12,7 @@ export default function HomeContent() {
 
   return (
     <div className="flex">
-      <div>
+      <div className="w-full lg:w-auto">
         <div className="hidden lg:block">
           <GroupNavigation />
         </div>

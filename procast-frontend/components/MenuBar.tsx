@@ -44,6 +44,7 @@ export default function MenuBar() {
           <button
             className="text-2xl bg-zinc-100 p-2 hover:bg-primary-100 hover:text-white transition ease-in-out duration-500 rounded-lg  cursor-pointer flex items-center gap-4"
             onClick={() => setIsOpen(!isOpen)}
+            type="button"
           >
             <IoMenu />
             <span

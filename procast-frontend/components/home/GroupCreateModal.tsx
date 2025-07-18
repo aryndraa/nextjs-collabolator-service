@@ -51,7 +51,7 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
 
   return (
     <Overlay>
-      <div className="w-[35%] bg-white rounded-lg p-6">
+      <div className="w-[100%] h-screen md:h-fit md:w-[60%] lg:w-[35%] bg-white md:rounded-lg p-6">
         <div className="flex justify-end -mb-4">
           <button
             className="text-3xl cursor-pointer text-zinc-500"
