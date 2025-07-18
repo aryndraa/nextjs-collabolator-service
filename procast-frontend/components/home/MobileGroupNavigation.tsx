@@ -10,7 +10,7 @@ export default function MobileGroupNavigation() {
 
   return (
     <div className=" w-full border-r h-screen lg:hidden bg-white">
-      <div className="w-full flex justify-start px-5 py-6 bg-white mb-4 ">
+      <div className="w-full flex justify-start px-5 py -6 bg-white mb-4 ">
         <Logo />
       </div>
       <div className="flex justify-between  mb-4  px-5">

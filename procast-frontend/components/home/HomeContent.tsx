@@ -16,7 +16,7 @@ export default function HomeContent() {
         <div className="hidden lg:block">
           <GroupNavigation />
         </div>
-        <MobileGroupNavigation />
+        {groupId ?? <MobileGroupNavigation />}
       </div>
 
       {groupId ? <GroupScreen /> : <DefaultScreen />}
