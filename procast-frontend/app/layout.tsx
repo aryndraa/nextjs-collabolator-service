@@ -29,7 +29,6 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
       suppressHydrationWarning={true}
     >
-      <ToastContainer />
       <body className={`${outfit.variable}  antialiased overflow-y-hidden`}>
         <ThemeProvider
           attribute="class"
@@ -46,6 +45,7 @@ export default function RootLayout({
             </div>
           </div>
 
+          <ToastContainer />
           <main className="lg:ml-20 bg-[#F3F3F3] ">
             <ProfileGuard>{children}</ProfileGuard>
           </main>

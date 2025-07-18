@@ -5,6 +5,7 @@ import GroupNavigation from "./GroupNavigation";
 import MobileGroupNavigation from "./MobileGroupNavigation";
 import DefaultScreen from "./DefaultScreen";
 import { useGroup } from "@/contexts/GroupContext";
+import GroupScreen from "./GroupScreen";
 
 export default function HomeContent() {
   const { groupId } = useGroup();
@@ -18,7 +19,7 @@ export default function HomeContent() {
         <MobileGroupNavigation />
       </div>
 
-      {groupId ? "" : <DefaultScreen />}
+      {groupId ? <GroupScreen /> : <DefaultScreen />}
     </div>
   );
 }
