@@ -1,9 +1,16 @@
 import { FaUserCircle } from "react-icons/fa";
 import { IoCloseCircle } from "react-icons/io5";
 
+type Member = {
+  id: number;
+  name: string;
+  role: string;
+  avatar?: string;
+};
+
 type FriendItemProps = {
   type?: string[];
-  user?: any;
+  user?: Member;
 };
 
 export default function FriendItem({ type = [], user }: FriendItemProps) {

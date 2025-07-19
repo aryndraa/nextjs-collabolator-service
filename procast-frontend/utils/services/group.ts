@@ -24,9 +24,7 @@ export async function showGroup(id: number): Promise<Group> {
 }
 
 export async function getMembers(id: number, search: string) {
-  const response = await axios.get(
-    `/api/group/${id}/participant?search=${search}`
-  );
+  const response = await axios.get(`/api/group/${id}/participant/${search}`);
 
-  return response.data.participant;
+  return response.data.data.participant;
 }

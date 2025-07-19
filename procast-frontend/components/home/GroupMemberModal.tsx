@@ -2,14 +2,46 @@ import Overlay from "../Overlay";
 import { IoIosClose } from "react-icons/io";
 import { Input } from "../ui/input";
 import GroupMemberList from "./GroupMemberList";
+import { useGroup } from "@/contexts/GroupContext";
+import { useEffect, useState } from "react";
+import { getMembers } from "@/utils/services/group";
 
 type GroupMemberModalProps = {
   setOpenMember: () => void;
 };
 
+type Members = [
+  {
+    id: number;
+    name: string;
+    role: string;
+    avatar?: string;
+  }
+];
+
 export default function GroupMemberModal({
   setOpenMember,
 }: GroupMemberModalProps) {
+  const { groupId } = useGroup();
+  const [search, setSearch] = useState<string>("");
+  const [members, setMembers] = useState<Members[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchGroupMember = async () => {
+      try {
+        const data = await getMembers(groupId!, search);
+        setMembers(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGroupMember();
+  }, []);
+
   return (
     <Overlay>
       <div className="w-[35%] bg-white rounded-lg p-6">
@@ -30,7 +62,7 @@ export default function GroupMemberModal({
             placeholder={"Search Friend"}
             className="py-6 focus:ring-primary-100/40! focus:border-primary-100!"
           />
-          <GroupMemberList />
+          <GroupMemberList members={members} loading={loading} />
         </div>
       </div>
     </Overlay>
