@@ -7,8 +7,9 @@ import { FaRegUserCircle, FaInfoCircle } from "react-icons/fa";
 import GroupInfoModal from "./GroupInfoModal";
 import GroupMemberModal from "./GroupMemberModal";
 import { useGroup } from "@/contexts/GroupContext";
+import { Group } from "@/lib/stores/group";
 
-export default function GroupMessageHeader({ group }: any) {
+export default function GroupMessageHeader(group: Group) {
   const [openInfo, setOpenInfo] = useState<boolean>(false);
   const [openMember, setOpenMember] = useState<boolean>(false);
   const { setGroupId } = useGroup();
