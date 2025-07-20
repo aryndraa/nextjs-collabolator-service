@@ -1,5 +1,3 @@
-import React from "react";
-import { useGroup } from "@/contexts/GroupContext";
 import FriendItem from "../FriendItem";
 import { Skeleton } from "../ui/skeleton";
 

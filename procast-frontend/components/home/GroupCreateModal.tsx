@@ -31,14 +31,14 @@ export default function GroupCreateModal({ setIsOpen }: GroupCreateModalProps) {
       await createGroup({
         name: form.name,
         description: form.description,
-        deadline: form.deadlineProject,
+        deadline_project: form.deadlineProject,
       });
 
       optimisticCreateGroup({
         id: Date.now(),
         name: form.name,
         description: form.description,
-        deadline: form.deadlineProject,
+        deadline_project: form.deadlineProject,
       });
 
       toast.success("Group created successfully!");

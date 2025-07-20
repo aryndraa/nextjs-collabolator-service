@@ -1,23 +1,21 @@
-import Overlay from "../Overlay";
+import { useGroup } from "@/contexts/GroupContext";
+import { getMembers } from "@/utils/services/group";
+import { useEffect, useState } from "react";
 import { IoIosClose } from "react-icons/io";
+import Overlay from "../Overlay";
 import { Input } from "../ui/input";
 import GroupMemberList from "./GroupMemberList";
-import { useGroup } from "@/contexts/GroupContext";
-import { useEffect, useState } from "react";
-import { getMembers } from "@/utils/services/group";
 
 type GroupMemberModalProps = {
   setOpenMember: () => void;
 };
 
-type Members = [
-  {
-    id: number;
-    name: string;
-    role: string;
-    avatar?: string;
-  }
-];
+type Members = {
+  id: number;
+  name: string;
+  role: string;
+  avatar?: string;
+};
 
 export default function GroupMemberModal({
   setOpenMember,
@@ -40,7 +38,7 @@ export default function GroupMemberModal({
     };
 
     fetchGroupMember();
-  }, []);
+  }, [search, groupId]);
 
   return (
     <Overlay>
@@ -60,6 +58,7 @@ export default function GroupMemberModal({
         <div className="flex flex-col gap-6">
           <Input
             placeholder={"Search Friend"}
+            onChange={(e) => setSearch(e.target.value)}
             className="py-6 focus:ring-primary-100/40! focus:border-primary-100!"
           />
           <GroupMemberList members={members} loading={loading} />
