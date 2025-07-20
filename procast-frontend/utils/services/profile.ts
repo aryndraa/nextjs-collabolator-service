@@ -1,6 +1,6 @@
 import axios from "@/utils/axios";
 
-export async function profile() {
+export async function getProfile() {
   const response = await axios.get("/api/profile/");
 
   return response.data;

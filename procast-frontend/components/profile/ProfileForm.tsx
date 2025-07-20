@@ -12,7 +12,7 @@ import {
 import { InputLabel } from "../InputLabel";
 import Button from "../Button";
 import AvatarUploader from "../AvatarUploader";
-import { makeProfile } from "@/utils/services/profile";
+import { getProfile, makeProfile } from "@/utils/services/profile";
 import { useUser } from "@/lib/stores/user";
 import { useRouter } from "next/navigation";
 
@@ -30,12 +30,14 @@ export default function ProfileForm() {
     e.preventDefault();
 
     try {
-      const profile = await makeProfile({
+      await makeProfile({
         name,
         bio,
         link,
         avatar,
       });
+
+      const profile = await getProfile();
 
       setProfile(profile);
       setLoading(false);

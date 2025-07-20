@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@/lib/stores/user";
-import { profile } from "@/utils/services/profile";
+import { getProfile } from "@/utils/services/profile";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -14,19 +14,19 @@ export default function ProfileGuard({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const getProfile = useUser((state) => state.profile);
+  const profile = useUser((state) => state.profile);
   const setProfile = useUser((state) => state.setProfile);
   const isAuthenticated = useUser((state) => state.isAuthenticated);
 
   useEffect(() => {
     const fetchProfile = async () => {
       if (isAuthenticated) {
-        if (!getProfile) {
-          const userProfile = await profile();
+        if (!profile) {
+          const userProfile = await getProfile();
 
           if (userProfile) {
             setProfile(userProfile);
-          } else if (!getProfile && !allowRoutes.includes(pathname)) {
+          } else if (!profile && !allowRoutes.includes(pathname)) {
             router.push("/profile/make-profile");
           }
         }
@@ -34,7 +34,7 @@ export default function ProfileGuard({
     };
 
     fetchProfile();
-  }, [getProfile, pathname, router, setProfile, isAuthenticated]);
+  }, [profile, pathname, router, setProfile, isAuthenticated]);
 
   return <>{children}</>;
 }

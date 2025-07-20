@@ -1,10 +1,15 @@
 import { create } from "zustand";
 
 export type Profile = {
-  name: string;
-  bio: string | null;
-  link: string | null;
-  avatar: string | null;
+  data: {
+    id: number;
+    profile: {
+      name: string;
+      bio: string | null;
+      link: string | null;
+      avatar: string | null;
+    };
+  };
 };
 
 interface UserState {

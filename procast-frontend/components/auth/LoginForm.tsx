@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/card";
 import { useUser } from "@/lib/stores/user";
 import { login } from "@/utils/services/auth";
-import { profile } from "@/utils/services/profile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../Button";
 import { InputLabel } from "../InputLabel";
+import { getProfile } from "@/utils/services/profile";
 
 export function LoginForm() {
   const router = useRouter();
@@ -38,8 +38,7 @@ export function LoginForm() {
       setIsAuthenticated(true);
 
       try {
-        const userProfile = await profile();
-
+        const userProfile = await getProfile();
         setProfile(userProfile);
         setLoading(false);
 
