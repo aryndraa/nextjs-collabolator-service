@@ -6,7 +6,10 @@ use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Api\V1\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends BaseController
 {
@@ -21,10 +24,7 @@ class AuthController extends BaseController
     {
         $user = User::query()->create($request->all());
 
-        if (! $token = auth()->attempt($request->only('email', 'password'))) {
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-        }
-
+        $token = $user->createToken('token')->plainTextToken;
         $success = $this->respondWithToken($token);
 
         $cookie = cookie(
@@ -42,30 +42,23 @@ class AuthController extends BaseController
 
     /**
      * Get a JWT via given credentials.
-     *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function login(): JsonResponse
+    public function login(Request $request): JsonResponse
     {
-      $credentials = request(['email', 'password']);
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (! $token = auth()->guard('api')->attempt($credentials)) {
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        if (!Auth::attempt($credentials, true)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $success = $this->respondWithToken($token);
+        $request->session()->regenerate();
 
-        $cookie = cookie(
-            'token',
-            $token,
-            60 * 24,
-            '/',
-            null,
-            false,  // secure
-            false
-        );
-
-        return $this->sendResponse($success, 'User login successfully.')->cookie($cookie);
+        return response()->json(['message' => 'Logged in successfully']);
     }
 
     /**
@@ -73,13 +66,13 @@ class AuthController extends BaseController
      *
      * @return JsonResponse
      */
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
-        auth()->logout();
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        $cookie = Cookie::forget('jwt');
-
-        return $this->sendResponse([], 'Successfully logged out.');
+        return response()->json(['message' => 'Logged out']);
     }
 
 
@@ -95,7 +88,6 @@ class AuthController extends BaseController
         return [
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
         ];
     }
 }

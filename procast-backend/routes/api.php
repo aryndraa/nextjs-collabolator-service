@@ -14,14 +14,14 @@ Route::prefix('')
                 ->controller(AuthController::class)
                 ->group(function () {
                     Route::post('register', 'register')->name('register');
-                    Route::post('login', 'login')->name('login');
-                    Route::middleware('auth:api')
+                    Route::post('login', 'login')->name('login')->middleware('web');
+                    Route::middleware(['web', 'auth:sanctum'])
                         ->group(function () {
                             Route::delete('logout', 'logout')->name('logout');
                         });
                 });
 
-        Route::middleware('auth:api')
+        Route::middleware(['web', 'auth:sanctum'])
             ->group(function () {
                 Route::controller(ProfileController::class)
                     ->prefix('profile')
